@@ -14,6 +14,7 @@ export const validateUser=(userId,password)=> {
         withCredentials: true  
     });
     }
+    
 export const getUserDetails=()=>{
     return axios.get(LOGIN_URL,{
         withCredentials: true
