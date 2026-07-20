@@ -4,10 +4,10 @@ const LOGIN_URL='http://localhost:8000/farmverse/login';
 const LOGOUT_URL = 'http://localhost:8000/farmverse/logout';
 const USR_URL = 'http://localhost:8000/farmverse/user';
 
-const REGISTER_URL = "http://localhost:8000/farmverse/register";
+//const REGISTER_URL = "http://localhost:8000/farmverse/register";
 
 export const registerNewUser = (user) => {
-    return axios.post(REGISTER_URL, user, {
+    return axios.post(LOGIN_URL, user, {
         withCredentials: true
     });
 };
