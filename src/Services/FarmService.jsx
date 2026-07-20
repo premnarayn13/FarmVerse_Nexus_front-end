@@ -5,44 +5,37 @@ import axios from 'axios';
 const FARM_URL='http://localhost:8000/farmverse/farm';
 const ID_URL = 'http://localhost:8000/farmverse/farm-id';
 
+// Add Farm
+export const addFarm = (farm) => {
+    return axios.post(FARM_URL, farm, {
+        withCredentials: true
+    });
+};
 
+// Update Farm
+export const updateFarm = (farm) => {
+    return axios.put(FARM_URL, farm, {
+        withCredentials: true
+    });
+};
 
-    @PostMapping("/farm")
-    public void addFarm(@RequestBody Farm farm) {
-        // TODO Auto-generated method stub
-        String username=userService.getUserId();
-        farm.setUsername(username);
-        farmDao.addFarm(farm);
+// Get Farm By Id
+export const getFarmById = (id) => {
+    return axios.get(${ID_URL}/${id}, {
+        withCredentials: true
+    });
+};
 
-    }
+// Get All Farms
+export const getAllFarms = () => {
+    return axios.get(FARM_URL, {
+        withCredentials: true
+    });
+};
 
-    @PutMapping("/farm")
-    public void updateFarm(@RequestBody Farm farm) {
-        farmDao.addFarm(farm);
-    }
-
-    @GetMapping("/farm/{id}")
-    public Farm getFarmById(@PathVariable Long id) {
-        // TODO Auto-generated method stub
-        return farmDao.getFarmById(id);
-    }
-
-    @GetMapping("/farm")
-    public List<Farm> getFarmsByUsername() {
-
-        String username=userService.getUserId();
-        return farmDao.getFarmsByUsername(username);
-
-    }
-
-    @DeleteMapping("/farm/{id}")
-    public void deleteFarmById(@PathVariable Long id) {
-        // TODO Auto-generated method stub
-        farmDao.deleteFarmById(id);
-    }
-
-    @GetMapping("/farm-id")
-    public Long generateFarmId() {
-
-        return service.generateFarmId();
-    }
+// Delete Farm
+export const deleteFarm = (id) => {
+    return axios.delete(${ID_URL}/${id}, {
+        withCredentials: true
+    });
+};
