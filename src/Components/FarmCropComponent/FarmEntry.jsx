@@ -75,8 +75,48 @@ const FarmEntry = () => {
 
     return(
         <div>
-
+        <br/>
+         <div className = "container">
+          <div className = "row">
+            <div className = "card col-md-2 offset-md-3 offset-md-3">
+              <div className = "login-box">
+                <h2 className="text-center">New Farm Entry</h2>
+                 <br/>
+                  <form>
+                   <div className = "form-group">
+                     <label>Farm Id: </label>
+                     <input placeholder="Farm Id" name="farmId" className="form-control" value={newId} />
+                   </div>
+                   <div className = "form-group">
+                    <label> Farm Name: </label>
+                    <input placeholder="Farm Name" name="farmName" className="form-control" value={farm.farmName} onChange={onChangeHandler}/>
+                     {errors.farmName && <p style={{ color: "red" }}>{errors.farmName}</p>}
+                   </div>
+                   
+                   <div className = "form-group">
+                    <label> Farm Area: </label>
+                    <input placeholder="Farm Area" name="area" className="form-control" value={farm.area} onChange={onChangeHandler}/>
+                     {errors.area && <p style={{ color: "red" }}>{errors.area}</p>}
+                   </div>
+                 
+                    <div className = "form-group">
+                       <button className="btn btn-success" onClick={handleValidation}>Save</button>
+                       &nbsp;&nbsp;  
+                       <button className="btn btn-secondary" onClick={clearAll}>Reset</button>
+                       &nbsp;&nbsp;
+                       <button className="btn btn-warning" onClick={returnBack}>Return Back</button>
+                    </div>
+                 </form>
+                 <br/>
+                 <div>
+                   {flag && <p style={{ color: "blue" }}>New Farm Added </p>}
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
         </div>
+ 
     );
 };
 
