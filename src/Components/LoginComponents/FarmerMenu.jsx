@@ -30,7 +30,7 @@ const FarmerMenu=()=>{
                 <Nav className="me-auto">
                     
                     <NavDropdown title="" id="collasible-nav-dropdown"><b>Farm</b>
-                    <NavDropdown.Item href="">Farm Entry</NavDropdown.Item>
+                    <NavDropdown.Item href="/farm-add">Farm Entry</NavDropdown.Item>
                     <NavDropdown.Item href="">Farm List</NavDropdown.Item>
                     <NavDropdown.Item href="">Crop Entry</NavDropdown.Item>
                     <NavDropdown.Item href="">Crop List</NavDropdown.Item>
