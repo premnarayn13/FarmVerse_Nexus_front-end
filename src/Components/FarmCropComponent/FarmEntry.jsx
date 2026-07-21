@@ -16,6 +16,11 @@ const FarmEntry = () => {
         email: ""
       });
       const [newId, setNewId]=useState(0);
+      const setFarmId=()=>{
+      generateFarmId().then(response=>{
+       setNewId(response.data);
+      })
+  }
 
 
     return(
