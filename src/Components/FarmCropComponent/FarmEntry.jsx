@@ -20,7 +20,12 @@ const FarmEntry = () => {
       generateFarmId().then(response=>{
        setNewId(response.data);
       })
-  }
+    }
+
+    useEffect(() => {
+       setFarmId();
+       setFlag(false);
+    }, []);
 
 
     return(
