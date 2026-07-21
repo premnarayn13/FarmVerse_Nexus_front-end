@@ -27,6 +27,14 @@ const FarmEntry = () => {
        setFlag(false);
     }, []);
 
+    const  onChangeHandler = (event) =>{
+    event.persist();
+    setFlag(false);
+    const name = event.target.name;
+        const value = event.target.value;
+       setFarm(values =>({...values, [name]: value }));
+   };
+
 
     return(
         <div>
