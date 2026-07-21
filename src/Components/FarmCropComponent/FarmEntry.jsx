@@ -43,7 +43,10 @@ const FarmEntry = () => {
       });
     };
 
-    
+    const clearAll=()=>{
+    farm.farmName="";
+    farm.area=0.0;
+    }
 
     return(
         <div>
