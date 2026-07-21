@@ -69,6 +69,10 @@ const FarmEntry = () => {
     }
     };
 
+    const returnBack=()=>{
+        navigate('/farmer-menu');
+    }
+
     return(
         <div>
 
