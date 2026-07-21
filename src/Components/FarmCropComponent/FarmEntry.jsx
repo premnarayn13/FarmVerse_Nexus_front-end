@@ -1,4 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../DisplayView.css";
-import { registerNewUser } from "../../Services/LoginService";
+import { addFarm,generateFarmId } from "../../Services/LoginService";
+
+const FarmEntry = () => {
+
+};
+
+export default FarmEntry;
