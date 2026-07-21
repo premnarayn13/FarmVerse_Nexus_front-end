@@ -5,17 +5,17 @@ import { addFarm,generateFarmId } from "../../Services/LoginService";
 
 const FarmEntry = () => {
 
+    let navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+    const [farm, setFarm] = useState({
+      farmId: 0,
+      farmName: "",
+      area: 0.0,
+      username: "abcd",
+    });
+    const [flag, setFlag] = useState(false);
+    const [newId, setNewId] = useState(0);
 
-    
-      const navigate = useNavigate();
-    
-      const [farmUser, setFarmUser] = useState({
-        farmId: "",
-        password: "",
-        personalName: "",
-        email: ""
-      });
-      const [newId, setNewId]=useState(0);
       const setFarmId=()=>{
       generateFarmId().then(response=>{
        setNewId(response.data);
