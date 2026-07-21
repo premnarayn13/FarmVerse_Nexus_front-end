@@ -5,6 +5,25 @@ import { addFarm,generateFarmId } from "../../Services/LoginService";
 
 const FarmEntry = () => {
 
+
+    
+      const navigate = useNavigate();
+    
+      const [farmUser, setFarmUser] = useState({
+        farmId: "",
+        password: "",
+        personalName: "",
+        email: ""
+      });
+    
+
+
+
+    return(
+        <div>
+
+        </div>
+    );
 };
 
 export default FarmEntry;
