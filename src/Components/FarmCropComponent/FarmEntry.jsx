@@ -20,7 +20,7 @@ const FarmEntry = () => {
       generateFarmId().then(response=>{
        setNewId(response.data);
       })
-    }
+      }
 
     useEffect(() => {
        setFarmId();
@@ -33,7 +33,7 @@ const FarmEntry = () => {
     const name = event.target.name;
         const value = event.target.value;
        setFarm(values =>({...values, [name]: value }));
-   };
+    };
 
    const saveFarm=(event)=>{
       event.preventDefault();
@@ -47,6 +47,27 @@ const FarmEntry = () => {
     farm.farmName="";
     farm.area=0.0;
     }
+
+    const handleValidation = (event) => {
+    event.preventDefault();
+    let tempErrors = {};
+    let isValid = true;
+       
+    if (!toString(farm.farmName).trim()) {
+        tempErrors.farmName = "Farm name is required";
+        isValid = false;
+    }
+ 
+    if (!toString(farm.area).trim()) {
+        tempErrors.area = "Farm area is required";
+        isValid = false;
+    }
+       
+    setErrors(tempErrors);
+        if (isValid) {
+        saveFarm(event);
+    }
+    };
 
     return(
         <div>
