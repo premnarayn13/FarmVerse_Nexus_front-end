@@ -15,8 +15,7 @@ const FarmEntry = () => {
         personalName: "",
         email: ""
       });
-    
-
+      const [newId, setNewId]=useState(0);
 
 
     return(
