@@ -35,6 +35,15 @@ const FarmEntry = () => {
        setFarm(values =>({...values, [name]: value }));
    };
 
+   const saveFarm=(event)=>{
+      event.preventDefault();
+      farm.farmId=newId;
+      addFarm(farm).then(response=>{
+      setFlag(true);
+      });
+    };
+
+    
 
     return(
         <div>
