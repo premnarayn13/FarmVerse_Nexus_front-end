@@ -20,6 +20,11 @@ const CropEntry = () => {
   const [newId, setNewId] = useState("");
   const [newId, setNewId] = useState(0);
 
+  const setCropId = () => {
+    generateCropId().then((response) => {
+      setNewId(response.data);
+    });
+  };
   
   return (
     
