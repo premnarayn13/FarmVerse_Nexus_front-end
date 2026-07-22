@@ -38,6 +38,15 @@ const CropEntry = () => {
     setCrop((values) => ({ ...values, [name]: value }));
   };
 
+    const saveCrop = (event) => {
+    event.preventDefault();
+    crop.cropId = newId;
+    addCrop(crop).then((response) => {
+      setFlag(true);
+    });
+  };
+
+
   return (
     
   );
