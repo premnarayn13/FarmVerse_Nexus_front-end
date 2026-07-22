@@ -46,6 +46,21 @@ const CropEntry = () => {
     });
   };
 
+    const clearAll = () => {
+    crop.cropName = "";
+    crop.area = 0.0;
+  };
+
+    if (!toString(crop.cropName).trim()) {
+      tempErrors.cropName = "Crop name is required";
+      isValid = false;
+    }
+
+    if (!toString(crop.area).trim()) {
+      tempErrors.area = "Crop area is required";
+      isValid = false;
+    }
+
 
   return (
     
