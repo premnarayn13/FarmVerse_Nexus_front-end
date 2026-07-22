@@ -29,7 +29,15 @@ const CropEntry = () => {
     setCropId();
     setFlag(false);
   }, []);
-  
+
+    const onChangeHandler = (event) => {
+    event.persist();
+    setFlag(false);
+    const name = event.target.name;
+    const value = event.target.value;
+    setCrop((values) => ({ ...values, [name]: value }));
+  };
+
   return (
     
   );
