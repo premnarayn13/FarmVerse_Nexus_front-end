@@ -56,14 +56,88 @@ const CropEntry = () => {
       isValid = false;
     }
 
-    if (!toString(crop.area).trim()) {
-      tempErrors.area = "Crop area is required";
-      isValid = false;
+    setErrors(tempErrors);
+    if (isValid) {
+      saveCrop(event);
     }
 
 
+    const returnBack = () => {
+    navigate("/farmer-menu");
+    };
+
+
   return (
-    
+<div>
+      <br />
+      <div className="container">
+        <div className="row">
+          <div className="card col-md-2 offset-md-3 offset-md-3">
+            <div className="login-box">
+              <h2 className="text-center">New Crop Entry</h2>
+              <br />
+              <form>
+                <div className="form-group">
+                  <label>Crop Id: </label>
+                  <input
+                    placeholder="Crop Id"
+                    name="cropId"
+                    className="form-control"
+                    value={newId}
+                  />
+                </div>
+                <div className="form-group">
+                  <label> Crop Name: </label>
+                  <input
+                    placeholder="Crop Name"
+                    name="cropName"
+                    className="form-control"
+                    value={crop.cropName}
+                    onChange={onChangeHandler}
+                  />
+                  {errors.cropName && (
+                    <p style={{ color: "red" }}>{errors.cropName}</p>
+                  )}
+                </div>
+
+                <div className="form-group">
+                  <label> Crop Area: </label>
+                  <input
+                    placeholder="Crop Area"
+                    name="area"
+                    className="form-control"
+                    value={crop.area}
+                    onChange={onChangeHandler}
+                  />
+                  {errors.area && <p style={{ color: "red" }}>{errors.area}</p>}
+                </div>
+
+                <div className="form-group">
+                  <button
+                    className="btn btn-success"
+                    onClick={handleValidation}
+                  >
+                    Save
+                  </button>
+                  &nbsp;&nbsp;
+                  <button className="btn btn-secondary" onClick={clearAll}>
+                    Reset
+                  </button>
+                  &nbsp;&nbsp;
+                  <button className="btn btn-warning" onClick={returnBack}>
+                    Return Back
+                  </button>
+                </div>
+              </form>
+              <br />
+              <div>
+                {flag && <p style={{ color: "blue" }}>New Crop Added </p>}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
