@@ -25,6 +25,10 @@ const CropEntry = () => {
       setNewId(response.data);
     });
   };
+  useEffect(() => {
+    setCropId();
+    setFlag(false);
+  }, []);
   
   return (
     
