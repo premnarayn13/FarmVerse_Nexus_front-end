@@ -16,6 +16,10 @@ const CropEntry = () => {
     harvestMonthYear: "",
     yield: 0.0,
   });
+  const [flag, setFlag] = useState(false);
+  const [newId, setNewId] = useState("");
+  const [newId, setNewId] = useState(0);
+
   
   return (
     
