@@ -51,3 +51,9 @@ export const deleteFarmById = (id) => {
     });
 };
 
+
+export const generateFarmId = () => {
+    return axios.get(ID_URL, {
+        withCredentials: true,
+    });
+};
