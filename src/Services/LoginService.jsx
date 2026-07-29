@@ -31,8 +31,11 @@ export const getUserId=()=>{
      }
  
 export const logoutUser=()=>{
-    return axios.post(LOGOUT_URL,{
-        withCredentials: true
+    return axios.post(
+    LOGOUT_URL,
+    {},
+    {
+        withCredentials:true
     });
 }
  
