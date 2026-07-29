@@ -3,6 +3,7 @@ import {useNavigate,useParams,} from 'react-router-dom';
 import {getExpectedYield} from  "../../Services/AIService";
 import '../../DisplayView.css';
 
+const FarmCropEntry= () => {
 let navigate=useNavigate();
     let param=useParams();
     const [farmCrop,setFarmCrop]=useState({
@@ -85,3 +86,5 @@ let navigate=useNavigate();
      </div>
      </div>
      );
+}
+export default FarmCropReport;
