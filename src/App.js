@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoginPage from "./Components/LoginComponent/LoginPage";
+import LoginPage from "./Components/LoginComponents/LoginPage";
 import RegisterUser from "./Components/LoginComponents/RegisterUser";
 import FarmerMenu from "./Components/LoginComponents/FarmerMenu";
 import FarmEntry from "./Components/FarmCropComponent/FarmEntry";
