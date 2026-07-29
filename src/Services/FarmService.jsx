@@ -1,40 +1,24 @@
-import axios from 'axios';
+import axios from "axios";
 
-const FARM_URL = 'http://localhost:8080/farmverse/farm';
-const ID_URL = 'http://localhost:8080/farmverse/farm-id';
+const FARM_URL = "http://localhost:8080/farmverse/farm";
+const ID_URL = "http://localhost:8080/farmverse/farm-id";
+const FARM_NO_URL = "http://localhost:8080/farmverse/farm-no";
 
-// Add Farm
 export const addFarm = (farm) => {
     return axios.post(FARM_URL, farm, {
-        withCredentials: true
+        withCredentials: true,
     });
 };
 
-// Update Farm
 export const updateFarm = (farm) => {
     return axios.put(FARM_URL, farm, {
-        withCredentials: true
+        withCredentials: true,
     });
 };
 
-// Get Farm By Id
 export const getFarmById = (id) => {
-    return axios.get(`${ID_URL}/${id}`, {
-        withCredentials: true
-    });
-};
-
-// Get All Farms
-export const getAllFarms = () => {
-    return axios.get(FARM_URL, {
-        withCredentials: true
-    });
-};
-
-// Delete Farm
-export const deleteFarm = (id) => {
-    return axios.delete(`${ID_URL}/${id}`, {
-        withCredentials: true
+    return axios.get(`${FARM_URL}/${id}`, {
+        withCredentials: true,
     });
 };
 
@@ -45,12 +29,10 @@ export const getFarmsByUsername = () => {
 };
 
 export const deleteFarmById = (id) => {
-    // TODO Auto-generated method stub
     return axios.delete(`${FARM_URL}/${id}`, {
         withCredentials: true,
     });
 };
-
 
 export const generateFarmId = () => {
     return axios.get(ID_URL, {
@@ -59,7 +41,7 @@ export const generateFarmId = () => {
 };
 
 export const getAllFarmsIdsByUser = () => {
-    return axios.get(ID_URL, {
+    return axios.get(FARM_NO_URL, {
         withCredentials: true,
     });
 };
