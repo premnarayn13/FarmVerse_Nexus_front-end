@@ -19,7 +19,7 @@ export const updateFarm = (farm) => {
 
 // Get Farm By Id
 export const getFarmById = (id) => {
-    return axios.get(${ ID_URL } / ${ id }, {
+    return axios.get(`${ID_URL}/${id}`, {
         withCredentials: true
     });
 };
