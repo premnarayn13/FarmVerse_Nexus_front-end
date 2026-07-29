@@ -59,7 +59,7 @@ export const generateFarmId = () => {
 };
 
 export const getAllFarmsIdsByUser = () => {
-    return axios.get(FNO_URL, {
+    return axios.get(ID_URL, {
         withCredentials: true,
     });
 };
