@@ -22,6 +22,8 @@ function App() {
           <Route path="/crop-add" element={<CropEntry />} />
           <Route path="/farm-list" element={<FarmList />} />
           <Route path="/crop-list" element={<CropList />} />
+          <Route path="/farm-crop/:cid"element={<FarmCropReport/>}/>
+
         </Routes>
       </BrowserRouter>
     </div>
