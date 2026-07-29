@@ -33,7 +33,7 @@ export const getAllFarms = () => {
 
 // Delete Farm
 export const deleteFarm = (id) => {
-    return axios.delete(${ ID_URL } / ${ id }, {
+    return axios.delete(`${ID_URL}/${id}`, {
         withCredentials: true
     });
 };
