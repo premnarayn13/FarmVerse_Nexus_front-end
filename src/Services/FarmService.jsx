@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const FARM_URL = 'http://localhost:8000/farmverse/farm';
-const ID_URL = 'http://localhost:8000/farmverse/farm-id';
+const FARM_URL = 'http://localhost:8080/farmverse/farm';
+const ID_URL = 'http://localhost:8080/farmverse/farm-id';
 
 // Add Farm
 export const addFarm = (farm) => {

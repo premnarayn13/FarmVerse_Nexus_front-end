@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const LOGIN_URL='http://localhost:8000/farmverse/login';
-const LOGOUT_URL = 'http://localhost:8000/farmverse/logout';
-const USR_URL = 'http://localhost:8000/farmverse/user';
+const LOGIN_URL='http://localhost:8080/farmverse/login';
+const LOGOUT_URL = 'http://localhost:8080/farmverse/logout';
+const USR_URL = 'http://localhost:8080/farmverse/user';
 
 //const REGISTER_URL = "http://localhost:8000/farmverse/register";
 
