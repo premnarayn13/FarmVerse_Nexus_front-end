@@ -17,3 +17,17 @@ let navigate=useNavigate();
         yield:0.0,
         comments:""
     });
+
+    const setFarmCropData=()=>{
+    getExpectedYield(param.cid).then(response=>{
+      setFarmCrop(response.data);
+  });
+  }
+ 
+  useEffect(() => {
+     setFarmCropData();
+   }, []);
+ 
+   const returnBack=()=>{
+    navigate('/crop-list');  
+ }
