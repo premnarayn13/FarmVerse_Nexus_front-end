@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  addExpense,
-  generateExpenseId,
+  addExpense
 } from "../../Services/ExpenseService";
 import "../FarmCropComponent/FarmEntry.css";
 
@@ -12,7 +11,7 @@ const ExpenseEntry = () => {
   const [errors, setErrors] = useState({});
   const [flag, setFlag] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [newId, setNewId] = useState("");
+  //const [newId, setNewId] = useState("");
 
   const [expense, setExpense] = useState({
     expenseId: "",
@@ -20,12 +19,6 @@ const ExpenseEntry = () => {
     unitName: "",
     ratePerUnit: "",
   });
-
-  useEffect(() => {
-    generateExpenseId().then((response) => {
-      setNewId(response.data);
-    });
-  }, []);
 
   const onChangeHandler = (event) => {
     setFlag(false);
@@ -44,8 +37,7 @@ const ExpenseEntry = () => {
     setSaving(true);
 
     const payload = {
-      ...expense,
-      expenseId: newId,
+        ...expense
     };
 
     addExpense(payload)
@@ -64,6 +56,11 @@ const ExpenseEntry = () => {
 
     let tempErrors = {};
     let isValid = true;
+
+    if (!expense.expenseId.trim()) {
+        tempErrors.expenseId = "Expense ID is required";
+        isValid = false;
+    }
 
     if (!expense.expenseName.trim()) {
       tempErrors.expenseName = "Expense name is required";
@@ -155,10 +152,20 @@ const ExpenseEntry = () => {
                 </label>
 
                 <input
-                  className="farm-input farm-input-readonly"
-                  value={newId}
-                  readOnly
+                    className={`farm-input ${
+                        errors.expenseId ? "has-error" : ""
+                    }`}
+                    name="expenseId"
+                    value={expense.expenseId}
+                    onChange={onChangeHandler}
+                    placeholder="Example : E100001"
                 />
+
+                {errors.expenseId && (
+                    <small className="farm-error">
+                        {errors.expenseId}
+                    </small>
+                )}
               </div>
 
               <div className="farm-field">
