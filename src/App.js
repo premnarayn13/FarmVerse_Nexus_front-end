@@ -9,6 +9,10 @@ import FarmEntry from "./Components/FarmCropComponent/FarmEntry";
 import CropEntry from "./Components/FarmCropComponent/CropEntry";
 import FarmList from "./Components/FarmCropComponent/FarmList";
 import CropList from "./Components/FarmCropComponent/CropList";
+import FarmCropReport from "./Components/FarmCropComponent/FarmCropReport";
+import ExpenseEntry from "./Components/ExpenseComponent/ExpenseEntry";
+import ExpenseList from "./Components/ExpenseComponent/ExpenseList";
+
 
 function App() {
   return (
@@ -23,6 +27,8 @@ function App() {
           <Route path="/farm-list" element={<FarmList />} />
           <Route path="/crop-list" element={<CropList />} />
           <Route path="/farm-crop/:cid"element={<FarmCropReport/>}/>
+          <Route path="/expense-entry" element={<ExpenseEntry />} />
+          <Route path="/expense-list" element={<ExpenseList />} />
 
         </Routes>
       </BrowserRouter>

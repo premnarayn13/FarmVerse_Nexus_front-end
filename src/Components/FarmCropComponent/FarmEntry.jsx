@@ -7,11 +7,12 @@ const FarmEntry = () => {
   let navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [farm, setFarm] = useState({
-    farmId: 0,
-    farmName: "",
-    area: 0.0,
-    username: "abcd",
-  });
+    farmId:0,
+    farmName:"",
+    area:0.0,
+    soil:"",
+    username:"abcd"
+});
   const [flag, setFlag] = useState(false);
   const [newId, setNewId] = useState(0);
 
@@ -49,6 +50,7 @@ const FarmEntry = () => {
       farmId: 0,
       farmName: "",
       area: "",
+      soil: "",
       username: "abcd",
     });
 
@@ -139,6 +141,20 @@ const FarmEntry = () => {
                     <small className="text-danger">{errors.area}</small>
                   )}
                 </div>
+
+                <div className="mb-3">
+                  <label className="form-label fw-bold">
+                      Soil Type
+                  </label>
+
+                  <input
+                      className="form-control"
+                      placeholder="Enter Soil Type"
+                      name="soil"
+                      value={farm.soil}
+                      onChange={onChangeHandler}
+                  />
+              </div>
 
                 <div className="d-flex justify-content-between">
                   <button

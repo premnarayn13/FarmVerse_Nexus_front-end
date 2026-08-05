@@ -1,248 +1,305 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../../DisplayView.css";
-import { registerNewUser } from "../../Services/LoginService";
+import React,{useState,useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {registerNewUser} from "../../Services/LoginService";
+import '../../DisplayView.css';
+import { Card, Form, Button } from "react-bootstrap";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import farmBg from "../../assets/farmbg.jpeg";
 
-const RegisterUser = () => {
-
-  const navigate = useNavigate();
-
-  const [farmUser, setFarmUser] = useState({
-    username: "",
-    password: "",
-    personalName: "",
-    email: ""
-  });
-
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({});
-  const [flag, setFlag] = useState(false);
-
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  const createNewUser = (event) => {
-    event.preventDefault();
-
-    if (farmUser.password === confirmPassword) {
-      registerNewUser(farmUser)
-        .then((response) => {
-          console.log(response);
-          setFlag(true);
-        })
-        .catch((error) => {
-          console.log(error);
-          alert("Registration Failed!");
+const RegisterUser=()=>{
+ let navigate=useNavigate();
+    const [errors,setErrors]=useState({});
+    const [farmUser,setFarmUser]=useState({
+         username:"",
+         password: "",
+         personalName:"",
+         email:"",
         });
-    }
+   const [flag,setFlag]=useState(false);
+   const [confirmPassword,setConfirmPassword]=useState("");
+   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+   
+   useEffect(() => {
+       setFlag(false);
+   }, []);
+
+   const createNewUser = (event) => {
+     event.preventDefault();
+        if(farmUser.password===confirmPassword){
+          registerNewUser(farmUser).then((response)=>{
+           setFlag(true);
+           });
+     }
   };
 
-  const onChangeHandler = (event) => {
-    setFlag(false);
+  const  onChangeHandler = (event) =>{
+     event.persist();
+     setFlag(false);
+     const name = event.target.name;
+         const value = event.target.value;
+        setFarmUser(values =>({...values, [name]: value }));
+    };
 
-    const { name, value } = event.target;
-
-    setFarmUser((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleValidation = (event) => {
-    event.preventDefault();
-
-    let tempErrors = {};
-    let isValid = true;
-
-    if (!farmUser.username.trim()) {
-      tempErrors.username = "User Name is required";
+    const handleValidation = (event) => {
+     event.preventDefault();
+     let tempErrors = {};
+     let isValid = true;
+ 
+     if (!farmUser.username.trim()) {
+       tempErrors.username = "User Name is required";
+       isValid = false;
+     }
+ 
+     if (!farmUser.password.trim()) {
+       tempErrors.password = "Password is required";
+       isValid = false;
+     }
+     else if (farmUser.password.length < 5 || farmUser.passwordlength > 10) {
+        tempErrors.password="Password must be 5-10 characters long";
+       isValid = false;
+     }
+     else if (farmUser.password!==confirmPassword) {
+       tempErrors.password="Both the passwords are not matched";
       isValid = false;
     }
-
-    if (!farmUser.password.trim()) {
-      tempErrors.password = "Password is required";
-      isValid = false;
-    } else if (
-      farmUser.password.length < 5 ||
-      farmUser.password.length > 10
-    ) {
-      tempErrors.password = "Password must be 5-10 characters long";
-      isValid = false;
-    } else if (farmUser.password !== confirmPassword) {
-      tempErrors.password = "Passwords do not match";
-      isValid = false;
-    }
-
-    if (!farmUser.personalName.trim()) {
-      tempErrors.personalName = "Personal Name is required";
-      isValid = false;
-    }
-
-    if (!farmUser.email.trim()) {
-      tempErrors.email = "Email is required";
-      isValid = false;
-    } else if (!emailPattern.test(farmUser.email)) {
-      tempErrors.email = "Invalid Email Format";
-      isValid = false;
-    }
-
-    if (!confirmPassword.trim()) {
-      tempErrors.confirmPassword = "Confirm Password is required";
-      isValid = false;
-    }
-
+ 
+   if (!farmUser.personalName.trim()) {
+         tempErrors.personalName = "Personal Name is required";
+         isValid = false;
+     }
+ if (!farmUser.email.trim()) {
+         tempErrors.email = "Email is required";
+         isValid = false;
+       }
+       else if(!emailPattern.test(farmUser.email)){
+         tempErrors.email = "Invalid Email Format";
+         isValid = false;
+       }
+   
+       if (!confirmPassword.trim()) {
+         tempErrors.confirmPassword = "Confirm Password is required";
+         isValid = false;
+       }
+ 
     setErrors(tempErrors);
+     if (isValid) {
+         createNewUser(event);
+     }
+   };
 
-    if (isValid) {
-      createNewUser(event);
-    }
-  };
-
-  const returnBack = () => {
-    navigate("/");
-  };
-
+   const returnBack=()=>{
+   navigate('/');
+  }
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
 
-        <div className="col-md-6">
+<div
+style={{
+minHeight:"100vh",
+backgroundImage:`url(${farmBg})`,
+backgroundSize:"cover",
+backgroundPosition:"center",
+display:"flex",
+justifyContent:"center",
+alignItems:"center"
+}}
+>
 
-          <div className="card shadow">
+<div
+style={{
+position:"absolute",
+inset:0,
+background:"rgba(0,70,20,.55)"
+}}
+></div>
 
-            <div className="card-body">
+<Card
+style={{
+width:"500px",
+zIndex:2,
+borderRadius:"25px",
+background:"rgba(255,255,255,.18)",
+backdropFilter:"blur(18px)",
+border:"none",
+boxShadow:"0 20px 50px rgba(0,0,0,.25)"
+}}
+>
 
-              <h2 className="text-center mb-4">
-                <u>New User Registration</u>
-              </h2>
+<Card.Body className="p-5">
 
-              <form>
+<div className="text-center mb-4">
 
-                <div className="mb-3">
-                  <label>User Name</label>
+<i
+className="bi bi-tree-fill"
+style={{
+fontSize:"55px",
+color:"#9be15d"
+}}
+></i>
 
-                  <input
-                    type="text"
-                    placeholder="Username"
-                    name="username"
-                    className="form-control"
-                    value={farmUser.username}
-                    onChange={onChangeHandler}
-                  />
+<h2
+className="fw-bold text-white mt-2"
+>
+Create Account
+</h2>
 
-                  {errors.username && (
-                    <p style={{ color: "red" }}>{errors.username}</p>
-                  )}
-                </div>
+<p className="text-white">
+Join FarmVerse
+</p>
 
-                <div className="mb-3">
-                  <label>Password</label>
+</div>
 
-                  <input
-                    type="password"
-                    name="password"
-                    className="form-control"
-                    value={farmUser.password}
-                    onChange={onChangeHandler}
-                  />
+<Form>
 
-                  {errors.password && (
-                    <p style={{ color: "red" }}>{errors.password}</p>
-                  )}
-                </div>
+<Form.Group className="mb-3">
 
-                <div className="mb-3">
-                  <label>Confirm Password</label>
+<Form.Label className="text-white">
+Username
+</Form.Label>
 
-                  <input
-                    type="password"
-                    className="form-control"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
+<Form.Control
+placeholder="Enter Username"
+name="username"
+value={farmUser.username}
+onChange={onChangeHandler}
+/>
 
-                  {errors.confirmPassword && (
-                    <p style={{ color: "red" }}>
-                      {errors.confirmPassword}
-                    </p>
-                  )}
-                </div>
+{errors.username &&
+<p style={{color:"#ffb3b3"}}>
+{errors.username}
+</p>
+}
 
-                <div className="mb-3">
-                  <label>Personal Name</label>
+</Form.Group>
 
-                  <input
-                    type="text"
-                    placeholder="Personal Name"
-                    name="personalName"
-                    className="form-control"
-                    value={farmUser.personalName}
-                    onChange={onChangeHandler}
-                  />
+<Form.Group className="mb-3">
 
-                  {errors.personalName && (
-                    <p style={{ color: "red" }}>
-                      {errors.personalName}
-                    </p>
-                  )}
-                </div>
+<Form.Label className="text-white">
+Password
+</Form.Label>
 
-                <div className="mb-3">
-                  <label>Email</label>
+<Form.Control
+type="password"
+name="password"
+value={farmUser.password}
+onChange={onChangeHandler}
+/>
 
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    className="form-control"
-                    value={farmUser.email}
-                    onChange={onChangeHandler}
-                  />
+{errors.password &&
+<p style={{color:"#ffb3b3"}}>
+{errors.password}
+</p>
+}
 
-                  {errors.email && (
-                    <p style={{ color: "red" }}>{errors.email}</p>
-                  )}
-                </div>
+</Form.Group>
 
-                <div className="text-center">
+<Form.Group className="mb-3">
 
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    onClick={handleValidation}
-                  >
-                    Register
-                  </button>
+<Form.Label className="text-white">
+Confirm Password
+</Form.Label>
 
-                </div>
+<Form.Control
+type="password"
+value={confirmPassword}
+onChange={(e)=>setConfirmPassword(e.target.value)}
+/>
 
-              </form>
+{errors.confirmPassword &&
+<p style={{color:"#ffb3b3"}}>
+{errors.confirmPassword}
+</p>
+}
 
-              {flag && (
-                <div className="text-center mt-4">
+</Form.Group>
 
-                  <p style={{ color: "green" }}>
-                    Registration Successful
-                  </p>
+<Form.Group className="mb-3">
 
-                  <button
-                    className="btn btn-success"
-                    onClick={returnBack}
-                  >
-                    Go to Login
-                  </button>
+<Form.Label className="text-white">
+Full Name
+</Form.Label>
 
-                </div>
-              )}
+<Form.Control
+placeholder="Enter Name"
+name="personalName"
+value={farmUser.personalName}
+onChange={onChangeHandler}
+/>
 
-            </div>
+{errors.personalName &&
+<p style={{color:"#ffb3b3"}}>
+{errors.personalName}
+</p>
+}
 
-          </div>
+</Form.Group>
 
-        </div>
+<Form.Group className="mb-4">
 
-      </div>
-    </div>
-  );
+<Form.Label className="text-white">
+Email
+</Form.Label>
+
+<Form.Control
+placeholder="Enter Email"
+name="email"
+value={farmUser.email}
+onChange={onChangeHandler}
+/>
+
+{errors.email &&
+<p style={{color:"#ffb3b3"}}>
+{errors.email}
+</p>
+}
+
+</Form.Group>
+
+<div className="d-grid">
+
+<Button
+variant="success"
+size="lg"
+onClick={handleValidation}
+>
+
+Create Account
+
+</Button>
+
+</div>
+
+{flag &&
+
+<div className="text-center mt-4">
+
+<p style={{color:"#b7ffb7"}}>
+
+Registration Successful
+
+</p>
+
+<Button
+variant="outline-light"
+onClick={returnBack}
+>
+
+Go To Login
+
+</Button>
+
+</div>
+
+}
+
+</Form>
+
+</Card.Body>
+
+</Card>
+
+</div>
+
+);
+ 
 };
-
 export default RegisterUser;

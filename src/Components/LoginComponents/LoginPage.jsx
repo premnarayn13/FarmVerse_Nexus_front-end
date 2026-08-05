@@ -1,177 +1,213 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React,{useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import { validateUser } from "../../Services/LoginService";
 import '../../DisplayView.css';
+import { Card, Form, Button } from "react-bootstrap";
+import farmBg from "../../assets/farmbg.jpeg";
+import "bootstrap-icons/font/bootstrap-icons.css";
+ 
 
-const LoginPage = () => {
+const LoginPage=()=>{
+ let navigate=useNavigate();
+   const [errors,setErrors]=useState({});
+   const [loginData,setLoginData]=useState({
+      username :"",
+      password:""
+ });
+ const [flag,setFlag]=useState(true);
 
-    let navigate = useNavigate();
+ const validateLogin=(e)=>{
+     e.preventDefault();
+     validateUser(loginData.username,loginData.password).then((response)=>{
+      let reply=String(response.data);
+       if(reply==="True" || reply==="true")
+          navigate("/farmer-menu");
+        else
+        setFlag(false);
+     });
+  }
 
-    const [errors, setErrors] = useState({});
-    const [loginData, setLoginData] = useState({
-        username: "",
-        password: ""
-    });
+  const  onChangeHandler = (event) =>{
+     event.persist();
+     setFlag(true);
+     const name = event.target.name;
+     const value = event.target.value;
+     setLoginData(values =>({...values, [name]: value }));
+ };
 
-    const [flag, setFlag] = useState(true);
+ const handleValidation = (event) => {
+     event.preventDefault();
+     let tempErrors = {};
+     let isValid = true;
+ 
+     if (!loginData.username.trim()) {
+       tempErrors.username = "User Name is required";
+       isValid = false;
+     }
+ 
+     if (!loginData.password.trim()) {
+       tempErrors.password = "Password is required";
+       isValid = false;
+     }
+ 
+     setErrors(tempErrors);
+     if (isValid) {
+       validateLogin(event);
+     }
+   };
 
-    const validateLogin = (e) => {
-        e.preventDefault();
+   const registerNewUser=(e)=>{
+     navigate('/register');
+ }
 
-        validateUser(loginData.username, loginData.password)
-            .then((response) => {
-                let reply = String(response.data);
+  return(
+      
+<div
+style={{
+    minHeight: "100vh",
+    backgroundImage: `url(${farmBg})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+}}
+>
 
-                if (reply === "True" || reply === "true")
-                    navigate("/farmer-menu");
-                else
-                    setFlag(false);
-            });
-    };
+<div
+style={{
+    position: "absolute",
+    inset: 0,
+    background: "rgba(0,60,20,0.55)"
+}}
+></div>
 
-    const onChangeHandler = (event) => {
-        setFlag(true);
+<Card
+style={{
+    width: "430px",
+    zIndex: 2,
+    borderRadius: "25px",
+    background: "rgba(255,255,255,0.15)",
+    backdropFilter: "blur(15px)",
+    boxShadow: "0 20px 50px rgba(0,0,0,.25)",
+    border: "none",
+    color: "white"
+}}
+>
 
-        const name = event.target.name;
-        const value = event.target.value;
+<Card.Body className="p-5">
 
-        setLoginData(values => ({
-            ...values,
-            [name]: value
-        }));
-    };
+<div className="text-center mb-4">
 
-    const handleValidation = (event) => {
+<i
+className="bi bi-tree-fill"
+style={{
+fontSize:"55px",
+color:"#90ee90"
+}}
+></i>
 
-        event.preventDefault();
+<h2 className="fw-bold mt-3">
+FarmVerse
+</h2>
 
-        let tempErrors = {};
-        let isValid = true;
+<p>
+Agriculture Management System
+</p>
 
-        if (!loginData.username.trim()) {
-            tempErrors.username = "User Name is required";
-            isValid = false;
-        }
+</div>
 
-        if (!loginData.password.trim()) {
-            tempErrors.password = "Password is required";
-            isValid = false;
-        }
+<Form>
 
-        setErrors(tempErrors);
+<Form.Group className="mb-3">
 
-        if (isValid) {
-            validateLogin(event);
-        }
-    };
+<Form.Label>
+Username
+</Form.Label>
 
-    const registerNewUser = () => {
-        navigate('/register');
-    };
+<Form.Control
+type="text"
+name="username"
+placeholder="Enter Username"
+value={loginData.username}
+onChange={onChangeHandler}
+/>
 
-    return (
+{errors.username &&
+<p style={{color:"#ffb3b3"}}>
+{errors.username}
+</p>
+}
 
-        <div>
-            <div className="container">
+</Form.Group>
 
-                <div className="row">
+<Form.Group className="mb-3">
 
-                    <div className="card col-md-6 offset-md-3">
+<Form.Label>
+Password
+</Form.Label>
 
-                        <div className="login-box">
+<Form.Control
+type="password"
+name="password"
+placeholder="Enter Password"
+value={loginData.password}
+onChange={onChangeHandler}
+/>
 
-                            <h2 className="text-center">
-                                <u>User Login Page</u>
-                            </h2>
+{errors.password &&
+<p style={{color:"#ffb3b3"}}>
+{errors.password}
+</p>
+}
 
-                            <form>
+</Form.Group>
 
-                                <div className="form-group">
-                                    <label>User Name:</label>
+<div className="d-grid mt-4">
 
-                                    <input
-                                        placeholder="username"
-                                        name="username"
-                                        className="form-control"
-                                        value={loginData.username}
-                                        onChange={onChangeHandler}
-                                    />
+<Button
+variant="success"
+size="lg"
+onClick={handleValidation}
+>
 
-                                    {errors.username &&
-                                        <p style={{ color: "red" }}>
-                                            {errors.username}
-                                        </p>
-                                    }
+Login
 
-                                </div>
+</Button>
 
-                                <div className="form-group">
+</div>
 
-                                    <label>Password:</label>
+{!flag &&
+<p
+className="text-center mt-3"
+style={{color:"#ffaaaa"}}
+>
+Invalid Username or Password
+</p>
+}
 
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        className="form-control"
-                                        value={loginData.password}
-                                        onChange={onChangeHandler}
-                                    />
+<div className="text-center mt-4">
 
-                                    {errors.password &&
-                                        <p style={{ color: "red" }}>
-                                            {errors.password}
-                                        </p>
-                                    }
+<Button
+variant="outline-light"
+onClick={registerNewUser}
+>
 
-                                </div>
+Register New User
 
-                                <br />
+</Button>
 
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={handleValidation}
-                                >
-                                    Submit
-                                </button>
+</div>
 
-                            </form>
+</Form>
 
-                            <br />
+</Card.Body>
 
-                            <div>
-                                {!flag &&
-                                    <p style={{ color: "red" }}>
-                                        Invalid User Id or Password
-                                    </p>
-                                }
-                            </div>
+</Card>
 
-                            <div>
-
-                                <h2 size="5" color="yellow" />
-
-                                <br />
-
-                                <button
-                                    className="btn btn-info"
-                                    onClick={registerNewUser}
-                                >
-                                    Register New User
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
-    );
-
+</div>
+);
+    
+ 
 };
-
 export default LoginPage;

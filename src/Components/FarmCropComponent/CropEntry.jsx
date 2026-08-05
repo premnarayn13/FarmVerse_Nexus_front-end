@@ -9,23 +9,23 @@ const CropEntry = () => {
   const [errors, setErrors] = useState({});
   const [crop, setCrop] = useState({
     cropId: "",
-    farmId: 0,
+    farmId: "",
     username: "",
     cropName: "",
-    cropArea: 0.0,
+    cropArea: "",
     sownMonthYear: "",
     harvestMonthYear: "",
     yield: 0.0,
-  });
+});
   const [flag, setFlag] = useState(false);
-  const [newId, setNewId] = useState("");
+  //const [newId, setNewId] = useState("");
   const [idList, setIdList] = useState([]);
 
-  const setCropId = () => {
+ /* const setCropId = () => {
     generateCropId().then((response) => {
       setNewId(response.data);
     });
-  };
+  };*/
 
   const setFarmsIds = () => {
     getAllFarmsIdsByUser().then((response) => {
@@ -33,11 +33,15 @@ const CropEntry = () => {
     });
   };
 
-  useEffect(() => {
+/*  useEffect(() => {
     setCropId();
     setFarmsIds();
     setFlag(false);
-  }, []);
+  }, []);*/
+  useEffect(() => {
+    setFarmsIds();
+    setFlag(false);
+}, []);
 
   const onChangeHandler = (event) => {
     event.persist();
@@ -50,7 +54,7 @@ const CropEntry = () => {
   const saveCrop = (event) => {
     event.preventDefault();
 
-    crop.cropId = newId;
+    //crop.cropId = newId;
 
     addCrop(crop)
       .then((response) => {
@@ -67,15 +71,35 @@ const CropEntry = () => {
       });
   };
 
-  const clearAll = () => {
-    crop.cropName = "";
-    crop.cropArea = 0.0;
-  };
+  const clearAll = (event) => {
+
+    event.preventDefault();
+
+    setCrop({
+        cropId:"",
+        farmId:"",
+        username:"",
+        cropName:"",
+        cropArea:"",
+        sownMonthYear:"",
+        harvestMonthYear:"",
+        yield:0.0
+    });
+
+    setErrors({});
+    setFlag(false);
+
+};
 
   const handleValidation = (event) => {
     event.preventDefault();
     let tempErrors = {};
     let isValid = true;
+
+    if (!crop.cropId.trim()) {
+        tempErrors.cropId = "Crop ID is required";
+        isValid = false;
+    }
 
     if (!toString(crop.cropName).trim()) {
       tempErrors.cropName = "Crop name is required";
@@ -112,8 +136,20 @@ const CropEntry = () => {
               <form>
                 <div className="mb-3">
                   <label className="form-label fw-bold">Crop ID</label>
-                  <input className="form-control" value={newId} readOnly />
-                </div>
+
+                  <input
+                      type="text"
+                      className="form-control"
+                      name="cropId"
+                      placeholder="Enter Crop ID (Example: C1000003)"
+                      value={crop.cropId}
+                      onChange={onChangeHandler}
+                  />
+
+                  {errors.cropId && (
+                      <small className="text-danger">{errors.cropId}</small>
+                  )}
+              </div>
 
                 <div className="mb-3">
                   <label className="form-label fw-bold">Select Farm ID</label>
