@@ -29,7 +29,7 @@ function App() {
           <Route path="/farm-crop/:cid"element={<FarmCropReport/>}/>
           <Route path="/expense-entry" element={<ExpenseEntry />} />
           <Route path="/expense-list" element={<ExpenseList />} />
-
+          <Route path="/crop-inputs/:cid" element={<CropInputView />} />
         </Routes>
       </BrowserRouter>
     </div>
