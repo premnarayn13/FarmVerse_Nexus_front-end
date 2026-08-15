@@ -16,32 +16,30 @@ const CropEntry = () => {
     sownMonthYear: "",
     harvestMonthYear: "",
     yield: 0.0,
-});
+  });
   const [flag, setFlag] = useState(false);
-  //const [newId, setNewId] = useState("");
   const [idList, setIdList] = useState([]);
 
- /* const setCropId = () => {
-    generateCropId().then((response) => {
-      setNewId(response.data);
-    });
-  };*/
+  const loadInitialData = () => {
+    generateCropId()
+      .then((response) => {
+        if (response.data) {
+          setCrop((prev) => ({ ...prev, cropId: String(response.data) }));
+        }
+      })
+      .catch((err) => console.log(err));
 
-  const setFarmsIds = () => {
-    getAllFarmsIdsByUser().then((response) => {
-      setIdList(response.data);
-    });
+    getAllFarmsIdsByUser()
+      .then((response) => {
+        setIdList(response.data);
+      })
+      .catch((err) => console.log(err));
   };
 
-/*  useEffect(() => {
-    setCropId();
-    setFarmsIds();
-    setFlag(false);
-  }, []);*/
   useEffect(() => {
-    setFarmsIds();
+    loadInitialData();
     setFlag(false);
-}, []);
+  }, []);
 
   const onChangeHandler = (event) => {
     event.persist();
@@ -54,8 +52,6 @@ const CropEntry = () => {
   const saveCrop = (event) => {
     event.preventDefault();
 
-    //crop.cropId = newId;
-
     addCrop(crop)
       .then((response) => {
         if (response.data === "Total crop area cannot exceed the farm area.") {
@@ -65,49 +61,71 @@ const CropEntry = () => {
 
         alert("Crop Added Successfully");
         setFlag(true);
+        // Refresh crop id for next entry
+        generateCropId()
+          .then((res) => {
+            if (res.data) {
+              setCrop((prev) => ({
+                ...prev,
+                cropId: String(res.data),
+                cropName: "",
+                cropArea: "",
+                sownMonthYear: "",
+                harvestMonthYear: "",
+              }));
+            }
+          })
+          .catch((err) => console.log(err));
       })
       .catch((error) => {
         console.log(error);
+        alert("Failed to save crop.");
       });
   };
 
   const clearAll = (event) => {
-
     event.preventDefault();
 
-    setCrop({
-        cropId:"",
-        farmId:"",
-        username:"",
-        cropName:"",
-        cropArea:"",
-        sownMonthYear:"",
-        harvestMonthYear:"",
-        yield:0.0
-    });
+    setCrop((prev) => ({
+      ...prev,
+      farmId: "",
+      cropName: "",
+      cropArea: "",
+      sownMonthYear: "",
+      harvestMonthYear: "",
+      yield: 0.0,
+    }));
 
     setErrors({});
     setFlag(false);
-
-};
+  };
 
   const handleValidation = (event) => {
     event.preventDefault();
     let tempErrors = {};
     let isValid = true;
 
-    if (!crop.cropId.trim()) {
-        tempErrors.cropId = "Crop ID is required";
-        isValid = false;
+    if (!crop.cropId || !crop.cropId.trim()) {
+      tempErrors.cropId = "Crop ID is required";
+      isValid = false;
     }
 
-    if (!toString(crop.cropName).trim()) {
+    if (!crop.farmId || String(crop.farmId).trim() === "") {
+      tempErrors.farmId = "Select a Farm ID";
+      isValid = false;
+    }
+
+    if (!crop.cropName || !crop.cropName.trim()) {
       tempErrors.cropName = "Crop name is required";
       isValid = false;
     }
 
-    if (!toString(crop.cropArea).trim()) {
-      tempErrors.cropArea = "Crop area is required";
+    if (
+      crop.cropArea === "" ||
+      crop.cropArea === null ||
+      Number(crop.cropArea) <= 0
+    ) {
+      tempErrors.cropArea = "Crop area must be greater than 0";
       isValid = false;
     }
 

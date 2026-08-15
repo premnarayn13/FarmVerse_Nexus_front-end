@@ -25,12 +25,17 @@ const RegisterUser=()=>{
 
    const createNewUser = (event) => {
      event.preventDefault();
-        if(farmUser.password===confirmPassword){
-          registerNewUser(farmUser).then((response)=>{
+     if (farmUser.password === confirmPassword) {
+       registerNewUser(farmUser)
+         .then((response) => {
            setFlag(true);
-           });
+         })
+         .catch((error) => {
+           console.error("Registration error:", error);
+           alert("Registration failed: " + (error.response?.data || error.message));
+         });
      }
-  };
+   };
 
   const  onChangeHandler = (event) =>{
      event.persist();
@@ -54,7 +59,7 @@ const RegisterUser=()=>{
        tempErrors.password = "Password is required";
        isValid = false;
      }
-     else if (farmUser.password.length < 5 || farmUser.passwordlength > 10) {
+     else if (farmUser.password.length < 5 || farmUser.password.length > 10) {
         tempErrors.password="Password must be 5-10 characters long";
        isValid = false;
      }

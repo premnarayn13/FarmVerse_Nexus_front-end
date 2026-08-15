@@ -9,7 +9,7 @@ import {
 
 const PREDICT_URL = "http://localhost:8080/farmverse/predict";
 
-const CropInputsView = () => {
+const CropInputView = () => {
   const navigate = useNavigate();
   const { cid } = useParams();
   const [cropInputs, setCropInputs] = useState(null);
@@ -25,7 +25,7 @@ const CropInputsView = () => {
    * Crop ID is enough.
    * Backend gets the crop details and sends them to AI.
    */
-  const predictCropInputs = () => {
+  const predictCropInputs = useCallback(() => {
     if (!cid) {
       setError("Crop ID is missing.");
       setLoading(false);
@@ -52,14 +52,14 @@ const CropInputsView = () => {
         setLoading(false);
         setError("Unable to generate crop input prediction. Please try again.");
       });
-  };
+  }, [cid]);
 
   /*
    * Automatically run AI prediction when page opens.
    */
   useEffect(() => {
     predictCropInputs();
-  }, [cid]);
+  }, [predictCropInputs]);
 
   /*
    * Save AI generated crop inputs.
@@ -624,4 +624,4 @@ const CropInputsView = () => {
   );
 };
 
-export default CropInputsView;
+export default CropInputView;

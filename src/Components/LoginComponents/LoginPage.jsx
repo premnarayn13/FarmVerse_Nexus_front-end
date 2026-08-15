@@ -16,16 +16,22 @@ const LoginPage=()=>{
  });
  const [flag,setFlag]=useState(true);
 
- const validateLogin=(e)=>{
-     e.preventDefault();
-     validateUser(loginData.username,loginData.password).then((response)=>{
-      let reply=String(response.data);
-       if(reply==="True" || reply==="true")
+  const validateLogin = (e) => {
+    e.preventDefault();
+    validateUser(loginData.username, loginData.password)
+      .then((response) => {
+        let reply = String(response.data);
+        if (reply === "True" || reply === "true") {
           navigate("/farmer-menu");
-        else
+        } else {
+          setFlag(false);
+        }
+      })
+      .catch((err) => {
+        console.error("Login error:", err);
         setFlag(false);
-     });
-  }
+      });
+  };
 
   const  onChangeHandler = (event) =>{
      event.persist();

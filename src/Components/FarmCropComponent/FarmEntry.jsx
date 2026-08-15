@@ -7,19 +7,20 @@ const FarmEntry = () => {
   let navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [farm, setFarm] = useState({
-    farmId:0,
-    farmName:"",
-    area:0.0,
-    soil:"",
-    username:"abcd"
-});
+    farmId: 0,
+    farmName: "",
+    area: "",
+    soil: "",
+  });
   const [flag, setFlag] = useState(false);
   const [newId, setNewId] = useState(0);
 
   const setFarmId = () => {
-    generateFarmId().then((response) => {
-      setNewId(response.data);
-    });
+    generateFarmId()
+      .then((response) => {
+        setNewId(response.data);
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -37,10 +38,25 @@ const FarmEntry = () => {
 
   const saveFarm = (event) => {
     event.preventDefault();
-    farm.farmId = newId;
-    addFarm(farm).then((response) => {
-      setFlag(true);
-    });
+    const payload = {
+      ...farm,
+      farmId: newId,
+    };
+    addFarm(payload)
+      .then((response) => {
+        setFlag(true);
+        setFarmId();
+        setFarm({
+          farmId: 0,
+          farmName: "",
+          area: "",
+          soil: "",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Failed to save farm.");
+      });
   };
 
   const clearAll = (event) => {
@@ -51,7 +67,6 @@ const FarmEntry = () => {
       farmName: "",
       area: "",
       soil: "",
-      username: "abcd",
     });
 
     setErrors({});

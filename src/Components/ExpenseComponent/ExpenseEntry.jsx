@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  addExpense
+  addExpense,
+  generateExpenseId,
 } from "../../Services/ExpenseService";
 import "../FarmCropComponent/FarmEntry.css";
 
@@ -11,7 +12,6 @@ const ExpenseEntry = () => {
   const [errors, setErrors] = useState({});
   const [flag, setFlag] = useState(false);
   const [saving, setSaving] = useState(false);
-  //const [newId, setNewId] = useState("");
 
   const [expense, setExpense] = useState({
     expenseId: "",
@@ -19,6 +19,20 @@ const ExpenseEntry = () => {
     unitName: "",
     ratePerUnit: "",
   });
+
+  const loadExpenseId = () => {
+    generateExpenseId()
+      .then((res) => {
+        if (res.data) {
+          setExpense((prev) => ({ ...prev, expenseId: String(res.data) }));
+        }
+      })
+      .catch((err) => console.log("Failed to fetch expense ID:", err));
+  };
+
+  useEffect(() => {
+    loadExpenseId();
+  }, []);
 
   const onChangeHandler = (event) => {
     setFlag(false);
@@ -37,17 +51,27 @@ const ExpenseEntry = () => {
     setSaving(true);
 
     const payload = {
-        ...expense
+      ...expense,
+      expenseId: parseInt(expense.expenseId, 10),
+      ratePerUnit: parseFloat(expense.ratePerUnit),
     };
 
     addExpense(payload)
       .then(() => {
         setSaving(false);
         setFlag(true);
+        loadExpenseId();
+        setExpense((prev) => ({
+          ...prev,
+          expenseName: "",
+          unitName: "",
+          ratePerUnit: "",
+        }));
       })
       .catch((error) => {
         setSaving(false);
         console.log(error);
+        alert("Failed to save expense item.");
       });
   };
 
@@ -57,9 +81,9 @@ const ExpenseEntry = () => {
     let tempErrors = {};
     let isValid = true;
 
-    if (!expense.expenseId.trim()) {
-        tempErrors.expenseId = "Expense ID is required";
-        isValid = false;
+    if (!String(expense.expenseId).trim() || isNaN(Number(expense.expenseId))) {
+      tempErrors.expenseId = "Valid numeric Expense ID is required";
+      isValid = false;
     }
 
     if (!expense.expenseName.trim()) {
@@ -91,12 +115,12 @@ const ExpenseEntry = () => {
     setErrors({});
     setFlag(false);
 
-    setExpense({
-      expenseId: "",
+    setExpense((prev) => ({
+      ...prev,
       expenseName: "",
       unitName: "",
       ratePerUnit: "",
-    });
+    }));
   };
 
   const returnBack = () => {
@@ -158,7 +182,7 @@ const ExpenseEntry = () => {
                     name="expenseId"
                     value={expense.expenseId}
                     onChange={onChangeHandler}
-                    placeholder="Example : E100001"
+                    placeholder="Example : 1001"
                 />
 
                 {errors.expenseId && (

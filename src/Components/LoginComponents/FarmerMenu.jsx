@@ -7,9 +7,8 @@ import {
   Row,
   Col,
   Card,
-  Button,
 } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../../Services/LoginService";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import image1 from "../../assets/image1.jpg";
@@ -20,11 +19,18 @@ const FarmerMenu = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logoutUser().then(() => {
-      localStorage.clear();
-      sessionStorage.clear();
-      navigate("/");
-    });
+    logoutUser()
+      .then(() => {
+        localStorage.clear();
+        sessionStorage.clear();
+        navigate("/");
+      })
+      .catch((err) => {
+        console.error("Logout error:", err);
+        localStorage.clear();
+        sessionStorage.clear();
+        navigate("/");
+      });
   };
 
   return (
@@ -37,7 +43,7 @@ const FarmerMenu = () => {
         }}
       >
         <Container style={{ display: "flex", minHeight: "auto", height: "auto" }}>
-          <Navbar.Brand href="/farmer-menu" className="text-white fw-bold">
+          <Navbar.Brand as={Link} to="/farmer-menu" className="text-white fw-bold">
             <i className="bi bi-tree-fill me-2"></i>
             Farm Verse
           </Navbar.Brand>
@@ -46,7 +52,7 @@ const FarmerMenu = () => {
 
           <Navbar.Collapse>
             <Nav className="ms-auto align-items-lg-center">
-              <Nav.Link href="/farmer-menu" className="text-white fw-semibold">
+              <Nav.Link as={Link} to="/farmer-menu" className="text-white fw-semibold">
                 <i className="bi bi-house-door-fill me-1"></i>
                 Dashboard
               </Nav.Link>
@@ -60,8 +66,8 @@ const FarmerMenu = () => {
                 }
                 id="farm-dropdown"
               >
-                <NavDropdown.Item href="/farm-add">🌾 Farm Entry</NavDropdown.Item>
-                <NavDropdown.Item href="/farm-list">📋 Farm List</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/farm-add">🌾 Farm Entry</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/farm-list">📋 Farm List</NavDropdown.Item>
               </NavDropdown>
 
               <NavDropdown
@@ -73,8 +79,21 @@ const FarmerMenu = () => {
                 }
                 id="crop-dropdown"
               >
-                <NavDropdown.Item href="/crop-add">🌱 Crop Entry</NavDropdown.Item>
-                <NavDropdown.Item href="/crop-list">🌿 Crop List</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/crop-add">🌱 Crop Entry</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/crop-list">🌿 Crop List</NavDropdown.Item>
+              </NavDropdown>
+
+              <NavDropdown
+                title={
+                  <span className="text-white fw-semibold">
+                    <i className="bi bi-cash-stack me-1"></i>
+                    Expenses
+                  </span>
+                }
+                id="expense-dropdown"
+              >
+                <NavDropdown.Item as={Link} to="/expense-entry">➕ Expense Entry</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/expense-list">📊 Expense List</NavDropdown.Item>
               </NavDropdown>
 
               <Nav.Link className="text-white position-relative me-2">
@@ -96,7 +115,7 @@ const FarmerMenu = () => {
                 }
                 id="profile-dropdown"
               >
-                <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
                 <NavDropdown.Item onClick={handleLogout}>
                   <i className="bi bi-box-arrow-right me-1"></i>
                   Logout
