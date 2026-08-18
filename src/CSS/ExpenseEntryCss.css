@@ -1,0 +1,483 @@
+/* ================================
+   EXPENSE PAGE
+================================ */
+
+.expense-page {
+    width: 100%;
+    height: 100vh;
+
+    position: relative;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+}
+
+/* ================================
+   BACKGROUND OVERLAY
+================================ */
+
+.expense-overlay {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 40, 15, 0.48);
+
+    z-index: 1;
+}
+
+/* ================================
+   MAIN CARD
+================================ */
+
+.expense-card {
+    position: relative;
+
+    z-index: 2;
+
+    width: 92%;
+    max-width: 580px;
+
+    max-height: 94vh;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+
+    box-sizing: border-box;
+}
+
+/* ================================
+   HEADER
+================================ */
+
+.expense-header {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 22px 28px;
+
+    background: linear-gradient(135deg, #176b3a, #198754, #2eaa63);
+
+    color: white;
+}
+
+.expense-icon {
+    width: 58px;
+    height: 58px;
+
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-shrink: 0;
+}
+
+.expense-icon i {
+    font-size: 30px;
+}
+
+.expense-header h2 {
+    margin: 0;
+
+    font-size: 24px;
+
+    font-weight: 700;
+}
+
+.expense-header p {
+    margin: 4px 0 0;
+
+    font-size: 13px;
+
+    opacity: 0.9;
+}
+
+/* ================================
+   BODY
+================================ */
+
+.expense-body {
+    padding: 24px 30px 26px;
+
+    background: #fbfdfb;
+
+    box-sizing: border-box;
+}
+
+/* ================================
+   FIELDS
+================================ */
+
+.expense-field {
+    margin-bottom: 17px;
+}
+
+.expense-field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #344054;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+}
+
+.expense-field label i {
+    color: #198754;
+
+    margin-right: 7px;
+
+    font-size: 14px;
+}
+
+.expense-field input {
+    width: 100%;
+
+    height: 44px;
+
+    padding: 0 14px;
+
+    border: 1.5px solid #d8e2dc;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: #263238;
+
+    font-size: 14px;
+
+    outline: none;
+
+    box-sizing: border-box;
+
+    transition: 0.25s ease;
+}
+
+.expense-field input:focus {
+    border-color: #198754;
+
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
+}
+
+.expense-field input::placeholder {
+    color: #a0aaa4;
+}
+
+/* Read Only */
+
+.expense-field .readonly-input {
+    background: #edf5ef;
+
+    color: #52705e;
+
+    font-weight: 600;
+
+    cursor: not-allowed;
+}
+
+/* ================================
+   PRICE INPUT
+================================ */
+
+.price-input {
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
+
+    height: 44px;
+
+    border: 1.5px solid #d8e2dc;
+
+    border-radius: 10px;
+
+    background: white;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    transition: 0.25s ease;
+}
+
+.price-input:focus-within {
+    border-color: #198754;
+
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
+}
+
+.price-input span {
+    height: 100%;
+
+    width: 45px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #eaf6ee;
+
+    color: #198754;
+
+    font-weight: 700;
+
+    font-size: 16px;
+}
+
+.price-input input {
+    border: none !important;
+
+    box-shadow: none !important;
+
+    height: 100%;
+
+    border-radius: 0;
+
+    flex: 1;
+}
+
+/* Remove number arrows */
+
+.price-input input::-webkit-inner-spin-button,
+.price-input input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+
+    margin: 0;
+}
+
+/* ================================
+   ERROR
+================================ */
+
+.expense-error {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #dc3545;
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+.expense-error i {
+    margin-right: 5px;
+}
+
+/* ================================
+   BUTTONS
+================================ */
+
+/* Buttons */
+.expense-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.expense-buttons button {
+    flex: 1;
+    min-width: 130px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.expense-buttons button i {
+    font-size: 18px;
+}
+
+/* Save Button - Same as Farm Entry */
+.save-btn {
+    background: linear-gradient(135deg, #8b6914, #6b4f12);
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(139, 105, 20, 0.4);
+}
+
+.save-btn:active {
+    transform: translateY(0);
+}
+
+/* Reset Button - Same as Farm Entry */
+.reset-btn {
+    background: linear-gradient(135deg, #ed8936, #dd6b20);
+}
+
+.reset-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(237, 137, 54, 0.4);
+}
+
+.reset-btn:active {
+    transform: translateY(0);
+}
+
+/* Back Button - Same as Farm Entry */
+.back-btn {
+    background: linear-gradient(135deg, #4a5568, #2d3748);
+}
+
+.back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 85, 104, 0.4);
+}
+
+.back-btn:active {
+    transform: translateY(0);
+}
+
+/* Disabled Save Button */
+.expense-buttons button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ================================
+   SUCCESS MESSAGE
+================================ */
+
+.expense-success {
+    margin-top: 18px;
+
+    padding: 12px 15px;
+
+    border-radius: 10px;
+
+    background: #eaf8ef;
+
+    border: 1px solid #9ed5b2;
+
+    color: #176b3a;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.expense-success>i {
+    font-size: 23px;
+
+    color: #198754;
+}
+
+.expense-success strong {
+    display: block;
+
+    font-size: 13px;
+}
+
+.expense-success small {
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 11px;
+
+    color: #5d7867;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 600px) {
+    .expense-card {
+        width: 94%;
+
+        max-height: 96vh;
+
+        border-radius: 18px;
+    }
+
+    .expense-header {
+        padding: 18px 20px;
+
+        gap: 12px;
+    }
+
+    .expense-icon {
+        width: 48px;
+        height: 48px;
+
+        border-radius: 12px;
+    }
+
+    .expense-icon i {
+        font-size: 24px;
+    }
+
+    .expense-header h2 {
+        font-size: 19px;
+    }
+
+    .expense-header p {
+        font-size: 11px;
+    }
+
+    .expense-body {
+        padding: 20px;
+    }
+
+    .expense-buttons {
+        gap: 8px;
+    }
+
+    .expense-buttons button {
+        font-size: 12px;
+
+        padding: 0 8px;
+    }
+}

@@ -1,0 +1,464 @@
+/* Main Container */
+.crop-entry-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.crop-entry-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.crop-entry-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Header */
+.crop-entry-header {
+    background: linear-gradient(135deg, #2c7a4a, #1a5a35);
+    padding: 18px 28px;
+    border-bottom: 3px solid #4caf50;
+    flex-shrink: 0;
+}
+
+.crop-entry-header h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.crop-entry-header h3 i {
+    font-size: 26px;
+    color: #81c784;
+}
+
+/* Body */
+.crop-entry-body {
+    padding: 20px 28px 24px;
+    background: #fafbfc;
+    overflow: hidden;
+    flex: 1;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #2d3748;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 9px 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #2d3748;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    box-sizing: border-box;
+    height: 40px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #2c7a4a;
+    box-shadow: 0 0 0 3px rgba(44, 122, 74, 0.1);
+}
+
+.form-group input[readonly] {
+    background: #f7fafc;
+    color: #4a5568;
+    cursor: not-allowed;
+    border-color: #e2e8f0;
+}
+
+.form-group input[readonly]:focus {
+    box-shadow: none;
+    border-color: #e2e8f0;
+}
+
+.form-group input::placeholder {
+    color: #a0aec0;
+    font-size: 13px;
+}
+
+/* Error Messages */
+.error {
+    display: block;
+    margin-top: 3px;
+    color: #e53e3e;
+    font-size: 12px;
+    font-weight: 500;
+    padding-left: 5px;
+}
+
+.error::before {
+    content: "⚠️ ";
+    font-size: 11px;
+}
+
+.form-group input.error,
+.form-group select.error {
+    border-color: #e53e3e;
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.button-group button {
+    flex: 1;
+    min-width: 90px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+}
+
+.button-group button i {
+    font-size: 16px;
+}
+
+/* Save Button */
+.save-btn {
+    background: linear-gradient(135deg, #2c7a4a, #1a5a35);
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(44, 122, 74, 0.4);
+}
+
+.save-btn:active {
+    transform: translateY(0);
+}
+
+/* Reset Button */
+.reset-btn {
+    background: linear-gradient(135deg, #ed8936, #dd6b20);
+}
+
+.reset-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(237, 137, 54, 0.4);
+}
+
+.reset-btn:active {
+    transform: translateY(0);
+}
+
+/* Back Button */
+.back-btn {
+    background: linear-gradient(135deg, #4a5568, #2d3748);
+}
+
+.back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 85, 104, 0.4);
+}
+
+.back-btn:active {
+    transform: translateY(0);
+}
+
+/* Success Message */
+.success-message {
+    margin-top: 14px;
+    padding: 11px 18px;
+    background: #f0fff4;
+    border: 2px solid #48bb78;
+    border-radius: 8px;
+    color: #22543d;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    animation: slideIn 0.5s ease;
+    font-size: 14px;
+    height: 40px;
+}
+
+.success-message::before {
+    content: "✅";
+    font-size: 17px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .crop-entry-container {
+        padding: 15px;
+    }
+
+    .crop-entry-card {
+        border-radius: 16px;
+        max-width: 540px;
+        max-height: 96vh;
+    }
+
+    .crop-entry-header {
+        padding: 16px 22px;
+    }
+
+    .crop-entry-header h3 {
+        font-size: 20px;
+    }
+
+    .crop-entry-header h3 i {
+        font-size: 22px;
+    }
+
+    .crop-entry-body {
+        padding: 18px 22px 20px;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    .form-group label {
+        font-size: 12px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 8px 13px;
+        font-size: 14px;
+        height: 38px;
+        border-radius: 8px;
+    }
+
+    .button-group {
+        gap: 8px;
+        margin-top: 16px;
+    }
+
+    .button-group button {
+        padding: 8px 16px;
+        font-size: 13px;
+        height: 38px;
+    }
+
+    .button-group button i {
+        font-size: 14px;
+    }
+
+    .error {
+        font-size: 11px;
+    }
+
+    .success-message {
+        font-size: 14px;
+        padding: 9px 16px;
+        height: 38px;
+        margin-top: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .crop-entry-container {
+        padding: 10px;
+    }
+
+    .crop-entry-card {
+        border-radius: 14px;
+        max-width: 100%;
+        max-height: 98vh;
+    }
+
+    .crop-entry-header {
+        padding: 14px 18px;
+    }
+
+    .crop-entry-header h3 {
+        font-size: 18px;
+    }
+
+    .crop-entry-header h3 i {
+        font-size: 20px;
+    }
+
+    .crop-entry-body {
+        padding: 14px 18px 18px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-group label {
+        font-size: 11px;
+        margin-bottom: 3px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 7px 11px;
+        font-size: 13px;
+        height: 34px;
+        border-radius: 6px;
+    }
+
+    .form-group input::placeholder {
+        font-size: 12px;
+    }
+
+    .button-group {
+        gap: 6px;
+        margin-top: 14px;
+    }
+
+    .button-group button {
+        padding: 7px 14px;
+        font-size: 12px;
+        height: 34px;
+        border-radius: 6px;
+    }
+
+    .button-group button i {
+        font-size: 13px;
+    }
+
+    .error {
+        font-size: 10px;
+        margin-top: 2px;
+    }
+
+    .success-message {
+        font-size: 13px;
+        padding: 7px 14px;
+        height: 34px;
+        margin-top: 10px;
+        border-radius: 6px;
+    }
+
+    .success-message::before {
+        font-size: 14px;
+    }
+}
+
+/* For smaller height screens */
+@media (max-height: 750px) {
+    .crop-entry-card {
+        max-height: 97vh;
+    }
+
+    .crop-entry-header {
+        padding: 14px 24px;
+    }
+
+    .crop-entry-header h3 {
+        font-size: 19px;
+    }
+
+    .crop-entry-body {
+        padding: 16px 24px 20px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-group label {
+        font-size: 12px;
+        margin-bottom: 3px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 7px 13px;
+        font-size: 13px;
+        height: 34px;
+    }
+
+    .button-group {
+        margin-top: 14px;
+        gap: 8px;
+    }
+
+    .button-group button {
+        padding: 7px 16px;
+        font-size: 13px;
+        height: 34px;
+    }
+
+    .success-message {
+        padding: 8px 16px;
+        height: 34px;
+        margin-top: 10px;
+        font-size: 13px;
+    }
+}
+
+/* Custom Scrollbar - Hidden since no scroll needed */
+.crop-entry-body::-webkit-scrollbar {
+    width: 0px;
+    display: none;
+}
+
+/* Loading State for Buttons (Optional) */
+.button-group button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Focus visible for accessibility */
+.button-group button:focus-visible,
+.form-group input:focus-visible,
+.form-group select:focus-visible {
+    outline: 3px solid #2c7a4a;
+    outline-offset: 2px;
+}

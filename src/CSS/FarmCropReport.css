@@ -1,0 +1,342 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+.frc-page {
+    --frc-green: #22b35e;
+    --frc-green-dark: #178a46;
+    --frc-green-light: #dcf7e6;
+    --frc-blue-light: #dbe9ff;
+    --frc-blue: #2f6fe4;
+    --frc-gold-light: #fdead0;
+    --frc-gold: #e6a318;
+    --frc-gold-dark: #a9700d;
+    --frc-purple-light: #ece2fd;
+    --frc-purple: #7c4fe0;
+    --frc-teal-light: #d9f4f2;
+    --frc-teal: #0f9c94;
+    --frc-red: #e14b4b;
+    --frc-ink: #182420;
+    --frc-ink-soft: #5c6862;
+    --frc-line: #eef1ee;
+    --frc-page-bg: #f4f6f5;
+
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 48px 20px;
+    background: var(--frc-page-bg);
+    font-family: 'Inter', sans-serif;
+    color: var(--frc-ink);
+}
+
+.frc-card {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 1px 2px rgba(31, 42, 36, 0.05), 0 20px 40px -16px rgba(23, 138, 70, 0.22);
+    overflow: hidden;
+    border: 1px solid #eef2ee;
+}
+
+/* deckle strip removed to match the flat, clean cards used elsewhere */
+.frc-deckle {
+    display: none;
+}
+
+.frc-header {
+    background: linear-gradient(135deg, #eafcf1 0%, #f5fbf3 55%, #ffffff 100%);
+    color: var(--frc-ink);
+    padding: 32px 32px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    border-bottom: 1px solid var(--frc-line);
+}
+
+.frc-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--frc-green-dark);
+    background: #ffffff;
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin: 0 0 14px;
+    box-shadow: 0 1px 0 rgba(23, 138, 70, 0.08), 0 4px 10px -6px rgba(23, 138, 70, 0.35);
+}
+
+.frc-eyebrow svg {
+    width: 13px;
+    height: 13px;
+    stroke: var(--frc-green-dark);
+    flex-shrink: 0;
+}
+
+.frc-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0 0 6px;
+    text-transform: capitalize;
+    color: var(--frc-ink);
+    letter-spacing: -.01em;
+}
+
+.frc-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14.5px;
+    color: var(--frc-ink-soft);
+    margin: 0;
+}
+
+.frc-subtitle b {
+    font-weight: 600;
+    color: var(--frc-green-dark);
+}
+
+.frc-seal {
+    flex-shrink: 0;
+    width: 68px;
+    height: 68px;
+    border-radius: 16px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: none;
+    background: linear-gradient(160deg, var(--frc-green) 0%, var(--frc-green-dark) 100%);
+    box-shadow: 0 10px 20px -10px rgba(23, 138, 70, 0.65);
+}
+
+.frc-seal-id {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.frc-seal-label {
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #d7f5e3;
+    margin-top: 3px;
+}
+
+.frc-body {
+    padding: 10px 32px 4px;
+}
+
+.frc-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--frc-line);
+}
+
+.frc-row:last-child {
+    border-bottom: none;
+}
+
+.frc-row-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    letter-spacing: .02em;
+    color: var(--frc-ink-soft);
+    font-weight: 600;
+}
+
+.frc-row-label svg {
+    width: 32px;
+    height: 32px;
+    padding: 7px;
+    box-sizing: border-box;
+    stroke: var(--frc-blue);
+    background: var(--frc-blue-light);
+    border-radius: 9px;
+    flex-shrink: 0;
+}
+
+.frc-row:nth-child(1) .frc-row-label svg {
+    stroke: var(--frc-teal);
+    background: var(--frc-teal-light);
+}
+
+.frc-row:nth-child(2) .frc-row-label svg {
+    stroke: var(--frc-blue);
+    background: var(--frc-blue-light);
+}
+
+.frc-row:nth-child(3) .frc-row-label svg {
+    stroke: var(--frc-purple);
+    background: var(--frc-purple-light);
+}
+
+.frc-row:nth-child(4) .frc-row-label svg {
+    stroke: var(--frc-gold-dark);
+    background: var(--frc-gold-light);
+}
+
+.frc-row-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--frc-ink);
+    text-align: right;
+}
+
+.frc-yield-wrap {
+    padding: 4px 32px 0;
+}
+
+.frc-yield {
+    margin: 10px 0 18px;
+    background: linear-gradient(135deg, #fff3dc 0%, #fde5bd 100%);
+    border: 1px solid rgba(230, 163, 24, 0.35);
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 12px 24px -16px rgba(230, 163, 24, 0.55);
+}
+
+.frc-yield-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    letter-spacing: .02em;
+    color: var(--frc-gold-dark);
+    font-weight: 700;
+}
+
+.frc-yield-label svg {
+    width: 32px;
+    height: 32px;
+    padding: 7px;
+    box-sizing: border-box;
+    stroke: var(--frc-gold-dark);
+    background: #ffffff;
+    border-radius: 9px;
+    box-shadow: 0 2px 6px rgba(169, 112, 13, 0.2);
+}
+
+.frc-yield-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--frc-green) 0%, var(--frc-green-dark) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.frc-yield-value span {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--frc-ink-soft);
+    margin-left: 4px;
+    -webkit-text-fill-color: var(--frc-ink-soft);
+}
+
+.frc-notes {
+    margin: 8px 32px 28px;
+    background: var(--frc-green-light);
+    border-left: 4px solid var(--frc-green);
+    border-radius: 0 12px 12px 0;
+    padding: 18px 20px;
+}
+
+.frc-notes-label {
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--frc-green-dark);
+    margin: 0 0 8px;
+    font-weight: 700;
+}
+
+.frc-notes p {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #33473c;
+    margin: 0;
+}
+
+.frc-footer {
+    padding: 8px 32px 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.frc-return {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #ffc247 0%, #f0a721 100%);
+    color: #3a2a06;
+    border: none;
+    padding: 13px 28px;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .01em;
+    text-transform: none;
+    cursor: pointer;
+    box-shadow: 0 10px 20px -8px rgba(230, 150, 20, 0.65);
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.frc-return svg {
+    width: 16px;
+    height: 16px;
+    stroke: #3a2a06;
+}
+
+.frc-return:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 24px -8px rgba(230, 150, 20, 0.75);
+}
+
+.frc-return:active {
+    transform: scale(0.98);
+}
+
+@media (max-width:480px) {
+    .frc-header {
+        flex-direction: column;
+    }
+
+    .frc-seal {
+        align-self: flex-end;
+        margin-top: -8px;
+    }
+
+    .frc-title {
+        font-size: 23px;
+    }
+
+    .frc-yield-value {
+        font-size: 24px;
+    }
+}

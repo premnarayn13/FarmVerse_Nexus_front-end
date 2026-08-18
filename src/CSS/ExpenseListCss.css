@@ -1,0 +1,521 @@
+/* =========================================================
+   EXPENSE LIST PAGE
+   ========================================================= */
+
+.expense-list-page {
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+/* =========================================================
+   BACKGROUND OVERLAY
+   ========================================================= */
+
+.expense-list-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(0, 50, 20, 0.25);
+
+    z-index: 0;
+}
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.expense-list-container {
+    position: relative;
+
+    z-index: 1;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   MAIN PANEL
+   ========================================================= */
+
+.expense-list-panel {
+    width: 100%;
+
+    max-width: 950px;
+
+    background: rgba(255, 255, 255, 0.82);
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+
+    backdrop-filter: blur(6px);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.expense-list-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 18px 25px;
+
+    background: linear-gradient(135deg, #198754, #146c43);
+
+    border-bottom: 4px solid #28a745;
+
+    color: white;
+}
+
+/* Header Icon */
+
+.expense-list-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.expense-list-icon i {
+    font-size: 26px;
+
+    color: #d8f3dc;
+}
+
+/* Header Text */
+
+.expense-list-header h2 {
+    margin: 0;
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    color: white;
+}
+
+.expense-list-header p {
+    margin: 3px 0 0;
+
+    color: #d8f3dc;
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+.expense-list-body {
+    padding: 22px;
+
+    background: rgba(250, 253, 251, 0.72);
+}
+
+/* =========================================================
+   TABLE WRAPPER
+   ========================================================= */
+
+.expense-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.72);
+
+    border: 1px solid rgba(25, 135, 84, 0.2);
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.expense-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   TABLE HEADER
+   ========================================================= */
+
+.expense-table thead {
+    background: linear-gradient(135deg, #198754, #146c43);
+}
+
+.expense-table th {
+    padding: 11px 12px;
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.3px;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   TABLE BODY
+   ========================================================= */
+
+.expense-table td {
+    padding: 10px 12px;
+
+    text-align: center;
+
+    color: #2d3748;
+
+    border-bottom: 1px solid #e2eee7;
+
+    background: rgba(255, 255, 255, 0.65);
+
+    white-space: nowrap;
+}
+
+/* Row Hover */
+
+.expense-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.expense-table tbody tr:hover td {
+    background: rgba(25, 135, 84, 0.07);
+}
+
+/* Last Row */
+
+.expense-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* =========================================================
+   EXPENSE ID
+   ========================================================= */
+
+.expense-id {
+    display: inline-block;
+
+    padding: 4px 8px;
+
+    border-radius: 6px;
+
+    background: #edf7f1;
+
+    color: #146c43;
+
+    font-weight: 700;
+
+    font-size: 12px;
+}
+
+/* =========================================================
+   EXPENSE NAME
+   ========================================================= */
+
+.expense-name {
+    font-weight: 600;
+
+    color: #2d3748;
+}
+
+/* =========================================================
+   UNIT BADGE
+   ========================================================= */
+
+.unit-badge {
+    display: inline-block;
+
+    padding: 4px 9px;
+
+    border-radius: 15px;
+
+    background: #e8f5ed;
+
+    color: #198754;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+/* =========================================================
+   PRICE
+   ========================================================= */
+
+.expense-price {
+    font-weight: 700;
+
+    color: #198754;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   DELETE BUTTON
+   ========================================================= */
+
+.delete-expense-btn {
+    border: none;
+
+    border-radius: 7px;
+
+    padding: 7px 12px;
+
+    background: linear-gradient(135deg, #dc3545, #b02a37);
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    transition: all 0.2s ease;
+}
+
+.delete-expense-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.35);
+}
+
+.delete-expense-btn:active {
+    transform: translateY(0);
+}
+
+/* =========================================================
+   NO EXPENSES
+   ========================================================= */
+
+.no-expenses {
+    height: 120px;
+
+    text-align: center !important;
+
+    color: #718096 !important;
+}
+
+.no-expenses i {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 25px;
+
+    color: #198754;
+}
+
+.no-expenses span {
+    font-size: 13px;
+}
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.expense-back-container {
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 18px;
+}
+
+.expense-back-btn {
+    border: none;
+
+    min-width: 110px;
+
+    padding: 9px 18px;
+
+    border-radius: 8px;
+
+    background: linear-gradient(135deg, #4a5568, #2d3748);
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    transition: all 0.2s ease;
+}
+
+.expense-back-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 12px rgba(45, 55, 72, 0.35);
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.expense-table-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+
+.expense-table-wrapper::-webkit-scrollbar-track {
+    background: #edf2ef;
+}
+
+.expense-table-wrapper::-webkit-scrollbar-thumb {
+    background: #198754;
+
+    border-radius: 10px;
+}
+
+.expense-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #146c43;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .expense-list-container {
+        padding: 12px;
+    }
+
+    .expense-list-panel {
+        max-width: 100%;
+    }
+
+    .expense-list-header {
+        padding: 15px 18px;
+    }
+
+    .expense-list-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .expense-list-icon i {
+        font-size: 22px;
+    }
+
+    .expense-list-header h2 {
+        font-size: 19px;
+    }
+
+    .expense-list-header p {
+        font-size: 11px;
+    }
+
+    .expense-list-body {
+        padding: 15px;
+    }
+
+    .expense-table {
+        font-size: 12px;
+    }
+
+    .expense-table th {
+        padding: 9px;
+        font-size: 11px;
+    }
+
+    .expense-table td {
+        padding: 8px;
+    }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 500px) {
+    .expense-list-page {
+        background-attachment: scroll;
+    }
+
+    .expense-list-container {
+        padding: 8px;
+    }
+
+    .expense-list-header {
+        gap: 10px;
+    }
+
+    .expense-list-header h2 {
+        font-size: 17px;
+    }
+
+    .expense-list-body {
+        padding: 10px;
+    }
+
+    .expense-table {
+        min-width: 650px;
+    }
+
+    .expense-back-btn {
+        width: 100%;
+    }
+}
