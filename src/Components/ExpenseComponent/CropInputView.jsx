@@ -6,6 +6,7 @@ import {
   addCropInputs,
   deleteCropInputsById,
 } from "../../Services/CropInputService";
+import farmBg from "../../assets/bg.png";
 
 const PREDICT_URL = "http://localhost:8080/farmverse/predict";
 
@@ -25,9 +26,9 @@ const CropInputView = () => {
    * Crop ID is enough.
    * Backend gets the crop details and sends them to AI.
    */
-  const predictCropInputs = useCallback(() => {
-    if (!cid) {
-      setError("Crop ID is missing.");
+  const predictCropInputs = () => {
+    if (!cid || cid === "undefined") {
+      setError("Crop ID is missing or invalid.");
       setLoading(false);
       return;
     }
@@ -52,14 +53,14 @@ const CropInputView = () => {
         setLoading(false);
         setError("Unable to generate crop input prediction. Please try again.");
       });
-  }, [cid]);
+  };
 
   /*
    * Automatically run AI prediction when page opens.
    */
   useEffect(() => {
     predictCropInputs();
-  }, [predictCropInputs]);
+  }, [cid]);
 
   /*
    * Save AI generated crop inputs.
@@ -188,7 +189,10 @@ const CropInputView = () => {
       className="container-fluid py-5"
       style={{
         minHeight: "100vh",
-        backgroundColor: "#f5f8f6",
+        backgroundImage: `url(${farmBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
       }}
     >
       <div className="container">
