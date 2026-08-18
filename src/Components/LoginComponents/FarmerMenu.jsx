@@ -7,6 +7,7 @@ import {
   Row,
   Col,
   Card,
+  Button,
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../../Services/LoginService";
@@ -19,18 +20,11 @@ const FarmerMenu = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logoutUser()
-      .then(() => {
-        localStorage.clear();
-        sessionStorage.clear();
-        navigate("/");
-      })
-      .catch((err) => {
-        console.error("Logout error:", err);
-        localStorage.clear();
-        sessionStorage.clear();
-        navigate("/");
-      });
+    logoutUser().then(() => {
+      localStorage.clear();
+      sessionStorage.clear();
+      navigate("/");
+    });
   };
 
   return (
@@ -83,19 +77,6 @@ const FarmerMenu = () => {
                 <NavDropdown.Item as={Link} to="/crop-list">🌿 Crop List</NavDropdown.Item>
               </NavDropdown>
 
-              <NavDropdown
-                title={
-                  <span className="text-white fw-semibold">
-                    <i className="bi bi-cash-stack me-1"></i>
-                    Expenses
-                  </span>
-                }
-                id="expense-dropdown"
-              >
-                <NavDropdown.Item as={Link} to="/expense-entry">➕ Expense Entry</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/expense-list">📊 Expense List</NavDropdown.Item>
-              </NavDropdown>
-
               <Nav.Link className="text-white position-relative me-2">
                 <i className="bi bi-bell-fill fs-5"></i>
                 <span
@@ -115,7 +96,7 @@ const FarmerMenu = () => {
                 }
                 id="profile-dropdown"
               >
-                <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/farmer-menu">My Profile</NavDropdown.Item>
                 <NavDropdown.Item onClick={handleLogout}>
                   <i className="bi bi-box-arrow-right me-1"></i>
                   Logout
