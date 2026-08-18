@@ -63,11 +63,9 @@
   right: -20%;
   width: 200px;
   height: 200px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.05) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(255, 255, 255, 0.05) 0%,
+      transparent 70%);
   border-radius: 50%;
 }
 
@@ -90,10 +88,12 @@
 }
 
 @keyframes pulse {
+
   0%,
   100% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.1);
   }
@@ -172,30 +172,39 @@
 .crop-table tbody tr:nth-child(1) {
   animation-delay: 0.05s;
 }
+
 .crop-table tbody tr:nth-child(2) {
   animation-delay: 0.1s;
 }
+
 .crop-table tbody tr:nth-child(3) {
   animation-delay: 0.15s;
 }
+
 .crop-table tbody tr:nth-child(4) {
   animation-delay: 0.2s;
 }
+
 .crop-table tbody tr:nth-child(5) {
   animation-delay: 0.25s;
 }
+
 .crop-table tbody tr:nth-child(6) {
   animation-delay: 0.3s;
 }
+
 .crop-table tbody tr:nth-child(7) {
   animation-delay: 0.35s;
 }
+
 .crop-table tbody tr:nth-child(8) {
   animation-delay: 0.4s;
 }
+
 .crop-table tbody tr:nth-child(9) {
   animation-delay: 0.45s;
 }
+
 .crop-table tbody tr:nth-child(10) {
   animation-delay: 0.5s;
 }
@@ -205,6 +214,7 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -449,6 +459,7 @@
 }
 
 @media (max-width: 768px) {
+
   .crop-list-container::before,
   .crop-list-container::after {
     display: none;
@@ -575,6 +586,7 @@
 
 /* ===== PRINT STYLES ===== */
 @media print {
+
   .yield-btn,
   .delete-btn,
   .back-btn {
