@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { getCropsByUsername, deleteCropById } from "../../Services/CropService";
 
@@ -85,58 +85,73 @@ const CropList = () => {
 
             <tbody>
               {crops.length > 0 ? (
-                crops.map((crop) => (
-                  <tr key={crop.cropId}>
-                    <td>{crop.cropId}</td>
+                crops.map((crop) => {
+                  const id = crop.cropId || crop.id;
+                  return (
+                    <tr key={id}>
+                      <td>{id}</td>
 
-                    <td>{crop.farmId}</td>
+                      <td>{crop.farmId}</td>
 
-                    <td>{crop.cropName}</td>
+                      <td>{crop.cropName}</td>
 
-                    <td>{crop.cropArea}</td>
+                      <td>{crop.cropArea}</td>
 
-                    <td>{crop.sownMonthYear}</td>
+                      <td>{crop.sownMonthYear}</td>
 
-                    <td>{crop.harvestMonthYear}</td>
+                      <td>{crop.harvestMonthYear}</td>
 
-                    <td>
-                      {crop.yield > 0
-                        ? `${crop.yield} Tons/Acre`
-                        : "Not Predicted"}
-                    </td>
+                      <td>
+                        {crop.yield > 0
+                          ? `${crop.yield} Tons/Acre`
+                          : "Not Predicted"}
+                      </td>
 
-                    <td>
-                      {/* Crop Inputs Button */}
-                      <button
-                        type="button"
-                        className="btn btn-success btn-sm me-2"
-                        onClick={() => navigate(`/crop-inputs/${crop.cropId}`)}
-                      >
-                        <i className="bi bi-clipboard-data me-1"></i>
-                        Crop Inputs
-                      </button>
+                      <td>
+                        {/* Crop Inputs Button */}
+                        <button
+                          type="button"
+                          className="btn btn-success btn-sm me-2"
+                          onClick={() => {
+                            if (!id || id === "undefined") {
+                              alert("Invalid or missing Crop ID.");
+                              return;
+                            }
+                            navigate(`/crop-inputs/${id}`);
+                          }}
+                        >
+                          <i className="bi bi-clipboard-data me-1"></i>
+                          Crop Inputs
+                        </button>
 
-                      {/* Crop Yield Button */}
-                      <Link
-                        to={`/farm-crop/${crop.cropId}`}
-                        className="yield-btn"
-                        style={{ textDecoration: "none", display: "inline-block" }}
-                      >
-                        <i className="bi bi-graph-up me-1"></i>
-                        Crop Yield
-                      </Link>
+                        {/* Crop Yield Button */}
+                        <button
+                          type="button"
+                          className="yield-btn"
+                          onClick={() => {
+                            if (!id || id === "undefined") {
+                              alert("Invalid or missing Crop ID.");
+                              return;
+                            }
+                            navigate(`/farm-crop/${id}`);
+                          }}
+                        >
+                          <i className="bi bi-graph-up me-1"></i>
+                          Crop Yield
+                        </button>
 
-                      {/* Delete Button */}
-                      <button
-                        type="button"
-                        className="delete-btn"
-                        onClick={() => removeCrop(crop.cropId)}
-                      >
-                        <i className="bi bi-trash"></i> Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))
+                        {/* Delete Button */}
+                        <button
+                          type="button"
+                          className="delete-btn"
+                          onClick={() => removeCrop(id)}
+                        >
+                          <i className="bi bi-trash"></i> Delete
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
               ) : (
                 <tr>
                   <td colSpan="8">No Crops Available</td>
