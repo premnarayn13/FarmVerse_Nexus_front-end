@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import {
-  addExpense,
-  generateExpenseId,
-} from "../../Services/ExpenseService";
-import "../FarmCropComponent/FarmEntry.css";
+  addAgroExpense,
+  getNewExpenseId,
+} from "../../Services/AgroExpenseService";
+
+import farmBg from "../../assets/bg.png";
+import "../../CSS/ExpenseEntryCss.css";
 
 const ExpenseEntry = () => {
   const navigate = useNavigate();
@@ -12,6 +15,7 @@ const ExpenseEntry = () => {
   const [errors, setErrors] = useState({});
   const [flag, setFlag] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [newId, setNewId] = useState("");
 
   const [expense, setExpense] = useState({
     expenseId: "",
@@ -20,18 +24,17 @@ const ExpenseEntry = () => {
     ratePerUnit: "",
   });
 
-  const loadExpenseId = () => {
-    generateExpenseId()
-      .then((res) => {
-        if (res.data) {
-          setExpense((prev) => ({ ...prev, expenseId: String(res.data) }));
-        }
-      })
-      .catch((err) => console.log("Failed to fetch expense ID:", err));
-  };
-
   useEffect(() => {
-    loadExpenseId();
+    getNewExpenseId()
+      .then((response) => {
+        setNewId(response.data);
+
+        setExpense((prev) => ({
+          ...prev,
+          expenseId: response.data,
+        }));
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   const onChangeHandler = (event) => {
@@ -52,26 +55,21 @@ const ExpenseEntry = () => {
 
     const payload = {
       ...expense,
-      expenseId: parseInt(expense.expenseId, 10),
-      ratePerUnit: parseFloat(expense.ratePerUnit),
+      expenseId: newId,
     };
 
-    addExpense(payload)
+    addAgroExpense(payload)
       .then(() => {
         setSaving(false);
         setFlag(true);
-        loadExpenseId();
-        setExpense((prev) => ({
-          ...prev,
-          expenseName: "",
-          unitName: "",
-          ratePerUnit: "",
-        }));
+
+        setTimeout(() => {
+          navigate("/farmer-menu");
+        }, 1500);
       })
       .catch((error) => {
         setSaving(false);
         console.log(error);
-        alert("Failed to save expense item.");
       });
   };
 
@@ -81,26 +79,18 @@ const ExpenseEntry = () => {
     let tempErrors = {};
     let isValid = true;
 
-    if (!String(expense.expenseId).trim() || isNaN(Number(expense.expenseId))) {
-      tempErrors.expenseId = "Valid numeric Expense ID is required";
-      isValid = false;
-    }
-
     if (!expense.expenseName.trim()) {
-      tempErrors.expenseName = "Expense name is required";
+      tempErrors.expenseName = "Expense Name is required";
       isValid = false;
     }
 
     if (!expense.unitName.trim()) {
-      tempErrors.unitName = "Unit name is required";
+      tempErrors.unitName = "Unit Name is required";
       isValid = false;
     }
 
-    if (
-      expense.ratePerUnit === "" ||
-      Number(expense.ratePerUnit) <= 0
-    ) {
-      tempErrors.ratePerUnit = "Enter valid rate";
+    if (expense.ratePerUnit === "" || Number(expense.ratePerUnit) <= 0) {
+      tempErrors.ratePerUnit = "Enter valid Cost Per Unit";
       isValid = false;
     }
 
@@ -115,12 +105,12 @@ const ExpenseEntry = () => {
     setErrors({});
     setFlag(false);
 
-    setExpense((prev) => ({
-      ...prev,
+    setExpense({
+      expenseId: newId,
       expenseName: "",
       unitName: "",
       ratePerUnit: "",
-    }));
+    });
   };
 
   const returnBack = () => {
@@ -128,183 +118,163 @@ const ExpenseEntry = () => {
   };
 
   return (
-    <div className="farm-entry-page">
-      <div className="farm-entry-wrap">
-        <div className="farm-card">
+    <div
+      className="expense-page"
+      style={{
+        backgroundImage: `url(${farmBg})`,
+      }}
+    >
+      {/* Background Overlay */}
+      <div className="expense-overlay"></div>
 
-          <div className="farm-card-scene">
-            <div className="farm-sun"></div>
-
-            <svg
-              className="farm-hills"
-              viewBox="0 0 400 90"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M0,90 L0,55 C60,20 100,70 160,45 C220,20 260,60 400,30 L400,90 Z"
-                className="farm-hill farm-hill-back"
-              />
-
-              <path
-                d="M0,90 L0,70 C80,40 140,80 210,55 C280,30 320,65 400,50 L400,90 Z"
-                className="farm-hill farm-hill-front"
-              />
-            </svg>
+      {/* Main Card */}
+      <div className="expense-card">
+        {/* Header */}
+        <div className="expense-header">
+          <div className="expense-icon">
+            <i className="bi bi-cash-stack"></i>
           </div>
 
-          <div className="farm-card-header">
-            <span className="farm-eyebrow">
-              Expense Records
-            </span>
+          <div>
+            <h2>New Expense Entry</h2>
+            <p>Record agriculture-related expenses</p>
+          </div>
+        </div>
 
-            <h3 className="farm-title">
-              New Expense Entry
-            </h3>
+        {/* Body */}
+        <div className="expense-body">
+          {/* Expense ID */}
+          <div className="expense-field">
+            <label>
+              <i className="bi bi-fingerprint"></i>
+              Expense ID
+            </label>
 
-            <p className="farm-subtitle">
-              Add expense items used in agriculture.
-            </p>
+            <input
+              type="text"
+              value={newId}
+              readOnly
+              className="readonly-input"
+            />
           </div>
 
-          <div className="farm-card-body">
+          {/* Expense Name */}
+          <div className="expense-field">
+            <label>
+              <i className="bi bi-receipt"></i>
+              Expense Name
+            </label>
 
-            <form>
+            <input
+              type="text"
+              name="expenseName"
+              value={expense.expenseName}
+              onChange={onChangeHandler}
+              placeholder="Example: Fertilizer"
+            />
 
-              <div className="farm-field">
-                <label className="farm-label">
-                  Expense ID
-                </label>
-
-                <input
-                    className={`farm-input ${
-                        errors.expenseId ? "has-error" : ""
-                    }`}
-                    name="expenseId"
-                    value={expense.expenseId}
-                    onChange={onChangeHandler}
-                    placeholder="Example : 1001"
-                />
-
-                {errors.expenseId && (
-                    <small className="farm-error">
-                        {errors.expenseId}
-                    </small>
-                )}
-              </div>
-
-              <div className="farm-field">
-                <label className="farm-label">
-                  Expense Name
-                </label>
-
-                <input
-                  className={`farm-input ${
-                    errors.expenseName ? "has-error" : ""
-                  }`}
-                  name="expenseName"
-                  value={expense.expenseName}
-                  onChange={onChangeHandler}
-                  placeholder="Example : Fertilizer"
-                />
-
-                {errors.expenseName && (
-                  <small className="farm-error">
-                    {errors.expenseName}
-                  </small>
-                )}
-              </div>
-
-              <div className="farm-field">
-                <label className="farm-label">
-                  Unit Name
-                </label>
-
-                <input
-                  className={`farm-input ${
-                    errors.unitName ? "has-error" : ""
-                  }`}
-                  name="unitName"
-                  value={expense.unitName}
-                  onChange={onChangeHandler}
-                  placeholder="Example : Kg, Litre, Hour"
-                />
-
-                {errors.unitName && (
-                  <small className="farm-error">
-                    {errors.unitName}
-                  </small>
-                )}
-              </div>
-
-              <div className="farm-field">
-                <label className="farm-label">
-                  Cost Per Unit
-                </label>
-
-                <input
-                  type="number"
-                  className={`farm-input ${
-                    errors.ratePerUnit ? "has-error" : ""
-                  }`}
-                  name="ratePerUnit"
-                  value={expense.ratePerUnit}
-                  onChange={onChangeHandler}
-                  placeholder="Enter Cost"
-                />
-
-                {errors.ratePerUnit && (
-                  <small className="farm-error">
-                    {errors.ratePerUnit}
-                  </small>
-                )}
-              </div>
-
-              <div className="farm-actions">
-
-                <button
-                  type="button"
-                  className="farm-btn farm-btn-primary"
-                  onClick={handleValidation}
-                  disabled={saving}
-                >
-                  {saving ? (
-                    <>
-                      <span className="farm-spinner"></span>
-                      Saving...
-                    </>
-                  ) : (
-                    <>Save</>
-                  )}
-                </button>
-
-                <button
-                  type="button"
-                  className="farm-btn farm-btn-ghost"
-                  onClick={clearAll}
-                >
-                  Reset
-                </button>
-
-                <button
-                  type="button"
-                  className="farm-btn farm-btn-outline"
-                  onClick={returnBack}
-                >
-                  Back
-                </button>
-
-              </div>
-
-            </form>
-
-            {flag && (
-              <div className="farm-toast">
-                Expense Added Successfully!
-              </div>
+            {errors.expenseName && (
+              <small className="expense-error">
+                <i className="bi bi-exclamation-circle"></i>
+                {errors.expenseName}
+              </small>
             )}
-
           </div>
 
+          {/* Unit Name */}
+          <div className="expense-field">
+            <label>
+              <i className="bi bi-box-seam"></i>
+              Unit Name
+            </label>
+
+            <input
+              type="text"
+              name="unitName"
+              value={expense.unitName}
+              onChange={onChangeHandler}
+              placeholder="Example: Kg, Bag, Litre"
+            />
+
+            {errors.unitName && (
+              <small className="expense-error">
+                <i className="bi bi-exclamation-circle"></i>
+                {errors.unitName}
+              </small>
+            )}
+          </div>
+
+          {/* Rate */}
+          <div className="expense-field">
+            <label>
+              <i className="bi bi-currency-rupee"></i>
+              Cost Per Unit
+            </label>
+
+            <div className="price-input">
+              <span>₹</span>
+
+              <input
+                type="number"
+                min="0"
+                name="ratePerUnit"
+                value={expense.ratePerUnit}
+                onChange={onChangeHandler}
+                placeholder="Enter cost per unit"
+              />
+            </div>
+
+            {errors.ratePerUnit && (
+              <small className="expense-error">
+                <i className="bi bi-exclamation-circle"></i>
+                {errors.ratePerUnit}
+              </small>
+            )}
+          </div>
+
+          {/* Buttons */}
+          <div className="expense-buttons">
+            <button
+              type="button"
+              className="save-btn"
+              onClick={handleValidation}
+              disabled={saving}
+            >
+              {saving ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2"></span>
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <i className="bi bi-check-circle me-2"></i>
+                  Save Expense
+                </>
+              )}
+            </button>
+
+            <button type="button" className="reset-btn" onClick={clearAll}>
+              <i className="bi bi-arrow-clockwise me-2"></i>
+              Reset
+            </button>
+
+            <button type="button" className="back-btn" onClick={returnBack}>
+              <i className="bi bi-arrow-left me-2"></i>
+              Back
+            </button>
+          </div>
+
+          {/* Success */}
+          {flag && (
+            <div className="expense-success">
+              <i className="bi bi-check-circle-fill"></i>
+
+              <div>
+                <strong>Expense Added Successfully!</strong>
+                <small>Returning to Farmer Menu...</small>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
