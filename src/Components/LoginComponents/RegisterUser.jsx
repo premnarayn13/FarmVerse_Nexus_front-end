@@ -25,17 +25,12 @@ const RegisterUser=()=>{
 
    const createNewUser = (event) => {
      event.preventDefault();
-     if (farmUser.password === confirmPassword) {
-       registerNewUser(farmUser)
-         .then((response) => {
+        if(farmUser.password===confirmPassword){
+          registerNewUser(farmUser).then((response)=>{
            setFlag(true);
-         })
-         .catch((error) => {
-           console.error("Registration error:", error);
-           alert("Registration failed: " + (error.response?.data || error.message));
-         });
+           });
      }
-   };
+  };
 
   const  onChangeHandler = (event) =>{
      event.persist();
