@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
-  getAllExpenses,
-  deleteExpenseById,
-} from "../../Services/ExpenseService";
+  getAllAgroExpenses,
+  deleteAgroExpense,
+} from "../../Services/AgroExpenseService";
 
-import "../../DisplayView.css";
+import farmBg from "../../assets/bg.png";
+
+import "../../CSS/ExpenseListCss.css";
 
 const ExpenseList = () => {
   const navigate = useNavigate();
 
   const [expenses, setExpenses] = useState([]);
 
+  // Load expenses
   const loadExpenses = () => {
-    getAllExpenses()
+    getAllAgroExpenses()
       .then((response) => {
         setExpenses(response.data);
       })
@@ -27,67 +30,100 @@ const ExpenseList = () => {
     loadExpenses();
   }, []);
 
+  // Delete expense
   const removeExpense = (id) => {
     if (window.confirm("Are you sure you want to delete this expense?")) {
-      deleteExpenseById(id).then(() => {
-        setExpenses(expenses.filter((item) => item.expenseId !== id));
-      });
+      deleteAgroExpense(id)
+        .then(() => {
+          setExpenses((prev) =>
+            prev.filter((expense) => expense.expenseId !== id),
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
+  // Back
   const returnBack = () => {
     navigate("/farmer-menu");
   };
 
   return (
-    <div>
-      <div className="container">
-        <div
-          className="card shadow-lg border-0 rounded-4"
-          style={{ width: "80%", height: "auto" }}
-        >
-          <div className="card-header bg-success text-white text-center">
-            <h3
-              className="mb-0"
-              style={{ color: "white", fontWeight: "bold" }}
-            >
-              Expense Item List
-            </h3>
+    <div
+      className="expense-list-page"
+      style={{
+        backgroundImage: `url(${farmBg})`,
+      }}
+    >
+      {/* Background Overlay */}
+      <div className="expense-list-overlay"></div>
+
+      {/* Main Content */}
+      <div className="expense-list-container">
+        {/* Panel */}
+        <div className="expense-list-panel">
+          {/* Header */}
+          <div className="expense-list-header">
+            <div className="expense-list-icon">
+              <i className="bi bi-cash-stack"></i>
+            </div>
+
+            <div>
+              <h2>Expense Item List</h2>
+
+              <p>Manage agriculture expense items</p>
+            </div>
           </div>
 
-          <div className="card-body">
-
-            <div className="table-responsive">
-
-              <table className="table table-bordered table-hover text-center align-middle">
-
-                <thead className="table-success">
+          {/* Table Section */}
+          <div className="expense-list-body">
+            <div className="expense-table-wrapper">
+              <table className="expense-table">
+                <thead>
                   <tr>
                     <th>Expense ID</th>
                     <th>Expense Name</th>
                     <th>Unit</th>
-                    <th>Cost Per Unit</th>
+                    <th>Rate Per Unit</th>
                     <th>Action</th>
                   </tr>
                 </thead>
 
                 <tbody>
-
                   {expenses.length > 0 ? (
                     expenses.map((expense) => (
                       <tr key={expense.expenseId}>
-                        <td>{expense.expenseId}</td>
-                        <td>{expense.expenseName}</td>
-                        <td>{expense.unitName}</td>
-                        <td>{expense.ratePerUnit}</td>
+                        <td>
+                          <span className="expense-id">
+                            {expense.expenseId}
+                          </span>
+                        </td>
+
+                        <td>
+                          <span className="expense-name">
+                            {expense.expenseName}
+                          </span>
+                        </td>
+
+                        <td>
+                          <span className="unit-badge">{expense.unitName}</span>
+                        </td>
+
+                        <td>
+                          <span className="expense-price">
+                            ₹ {expense.ratePerUnit}
+                          </span>
+                        </td>
 
                         <td>
                           <button
-                            className="btn btn-danger btn-sm"
-                            onClick={() =>
-                              removeExpense(expense.expenseId)
-                            }
+                            type="button"
+                            className="delete-expense-btn"
+                            onClick={() => removeExpense(expense.expenseId)}
                           >
+                            <i className="bi bi-trash"></i>
                             Delete
                           </button>
                         </td>
@@ -95,29 +131,29 @@ const ExpenseList = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="5">
-                        No Expenses Available
+                      <td colSpan="5" className="no-expenses">
+                        <i className="bi bi-inbox"></i>
+
+                        <span>No Expenses Available</span>
                       </td>
                     </tr>
                   )}
-
                 </tbody>
-
               </table>
-
             </div>
 
-            <div className="text-center mt-3">
+            {/* Back Button */}
+            <div className="expense-back-container">
               <button
-                className="btn btn-warning"
+                type="button"
+                className="expense-back-btn"
                 onClick={returnBack}
               >
+                <i className="bi bi-arrow-left-circle"></i>
                 Back
               </button>
             </div>
-
           </div>
-
         </div>
       </div>
     </div>
